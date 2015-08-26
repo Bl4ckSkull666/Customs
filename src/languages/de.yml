@@ -1,0 +1,454 @@
+autoLanguage: '&2Setze automatisch deine Sprache zu Deutsch'
+welcome:
+- '&3Hallo %name%,'
+- '&eschön dich auf unserem Stadt Server begrüssen zu können.'
+- '&eHier kannst du in ruhe auf Grundstücken bauen und Berufe Leveln um an Geld zu kommen.'
+- '&eZu beginn höre bitte kurz Bl4ckSkull666 zu und danach Sir_Hamburger,'
+- '&ebeide werden dir kurz was über den Stadt Server erzählen und was du zu beginn tun solltest.'
+- '&eBei Fragen oder problemen scheue dich nicht die Community zu fragen, diese können in den meinsten fällen'
+- '&edie Fragen auch ganz schnell beantworten.'
+- '&eWir wünschen dir nun Viel Spass auf diesem Teil unseres Servers.'
+cmdCost:
+  notEnough: '&cDu hast nicht genug &4%currency% &cum &4%cmd% &czu verwenden. Du brauchst &4%need% %currency% &caber hast nur &4%have% %currency%&c.'
+  paid: '&cDir wurden &4%need% %currency% &cabgezogen für das verwenden von &4%cmd%&c.'
+command:
+  clearinventory:
+    noPlayerFound: '&cKonnte kein passenden Spieler finden.'
+    clearedby: '&2Dein Inventar wurde von &a%by% &2geleert.'
+    clearedof: '&2Das Inventar von &a%name% &2wurde geleert.'
+    clearedown: '&2Dein Inventar wurde geleert.'
+    permission:
+     other: '&cDu hast keine Berechtigung das Inventar von anderen zu leeren.'
+     own: '&cDu hast keine Berechtigung dein Inventar zu leeren.'
+  spawn:
+    setfirst: '&2Erster Login Spawn-Punkt gesetzt.'
+    set: '&2Spawn-Punkt erfolgreich gesetzt.'
+    remfirst: '&2Erster Login Spawn-Punkt wurde gelöscht.'
+    rem: '&2Spawn-Punkt wurde gelöscht.'
+    use: '&2Du wurdest zum Spawn-Punkt teleportiert.'
+    notSet: '&2Es wurde kein Spawn-Punkt gesetzt.'
+    permission:
+      set: '&cDu hast keine Berechtigung um einen Spawn-Punkt zu setzen.'
+      rem: '&cDu hast keine Berechigung den Spawn-Punkt zu löschen.'
+      use: '&cDu darfst nicht zum Spawn-Punkt teleportiert werden.'
+  home:
+    permission:
+      use: '&cDu hast keine Rechte um /home zu verwenden.'
+    whatHome: '&5Zu welchem Home-Punkt möchtest du?'
+    selectOne: '&5Um zu dem ausgewählten Home-Punkt zu kommen, verwende /home (homename)'
+    noHomes: '&cDu hast noch keine Home-Punkte gesetzt.'
+    homeNotExist: '&cDer gewünschte Home-Punkt existiert nicht.'
+  sethome:
+    permission:
+      use: '&cDu hast keine Rechte um den Befehl /sethome zu machen.'
+      max: '&cDu hast bereits das Limit an Home-Punkten erreicht.'
+    cantUse: '&cDer gewünschte Home-Punkt Name kann nicht verwendet werden.'
+    alreadyExist: '&cDer gewählte Home-Punkt Name existiert bereits.'
+    needSyntax: '&cBenötige einen Home-Punkt Namen.'
+    successful: '&2Home-Punkt wurde erfolgreich angelegt.'
+    haveNow: '&2Du hast nun &a%have% &2von &a%max% &2Home-Punkten.'
+  delhome:
+    permission:
+      use: '&cDu kannst keine Home-Punkte löschen, du besitzt nicht genug Rechte dazu.'
+    notExist: '&cDer angegebene Home-Punkt existiert nicht.'
+    needSyntax: '&cBitte gib einen Home-Punkt Namen an.'
+    successful: '&2Der Home-Punkt wurde erfolgreich gelöscht.'
+    haveNow: '&2Du hast jetzt &a%have% &2von &a%max% &2Home-Punkten belegt.'
+  gamemode:
+    noPlayerFound: '&cKonnte den angegebenen Spieler nicht finden.'
+    permission:
+      noModeRights: '&cDu hast keine Rechte um den GameMode %gamemode% zu verwenden.'
+      other: '&cDu hast keine Berechtigung dazu von anderen den GameMode zu ändern.'
+      own: '&cDie fehlen die Rechte zum ändern deines GameModes.'
+    switch:
+      by: '&2Dein GameMode wurde auf &a%gamemode% &2von &a%by% &2geändert.'
+      of: '&2Der GameMode von &a%of% &2wurde zu &a%gamemode% &2geändert.'
+      own: '&2Dein GameMode wurde zu &a%gamemode% &2geändert.'
+  back:
+    permission:
+      use: '&cDu hast keine Rechte dich zurück zu deiner letzten Position zu Teleportieren.'
+    noPosition: '&cKonnte keine letzte Position finden.'
+    successful: '&2Du wurdest erfolgreich zu deiner letzten Position Teleportiert.'
+  warp:
+    permission:
+      use: '&cDu hast keine Rechte dich zu dem angegeben Warp-Punkt zu teleportieren.'
+    available: '&5Folgende Warp-Punkte stehen dir derzeit zur verfügung :'
+    notExist: '&cDer gewünschte Warp-Punkt existiert nicht.'
+    successful: '&2Du wurdest zur geünschten Position teleportiert.'
+  setwarp:
+    permission:
+      use: '&cDein Rechte reichen leider nicht aus um einen Warp-Punkt zu erstellen.'
+    needName: '&cBitte gib einen Namen an wie der neue Warp-Punkt heissen soll.'
+    alreadyExist: '&cDer gewünschte Warp-Punkt Name existiert bereits.'
+    successful: '&2Warp-Punkt erfolgreich erstellt.'
+  delwarp:
+    permission:
+      use: '&cDu darft keine Warp-Punkte löschen, da dir die Rechte dazu fehlen.'
+    notExist: '&cDer angegebene Warp-Punkt existiert nicht.'
+    needName: '&cBenötige einen vorhandenen Warp-Punkt namen zum löschen.'
+    successful: '&2Warp-Punkt wurde wie gewünscht gelöscht.'
+  speed:
+    permission:
+      other: '&cDu hast keine Berechtigung von anderen die Geschwindigkeit zu setzen.'
+      level: '&cDie gewünschte Geschwindigkeit ist zu Hoch. Du hast dafür nicht die erforderlichen Rechte.'
+    syntax:
+      2: '&cBitte verwende /%cmd% <player> <stufe> oder /%cmd% <type> <stufe>'
+      3: '&cBitte verwende /%cmd% <type> <player> <stufe>'
+      type: '&cFalscher Type.'
+      list:
+        top: '&5Bitte verwende einen der folgenden Befehl Typen :'
+        1: '&e/%cmd% <stufe>'
+        2: '&e/%cmd% <player> <stufe>'
+        3: '&e/%cmd% <type> <stufe>'
+        4: '&e/%cmd% <type> <player> <stufe>'
+        end: '&5Alle Parameter können in beliebiger Reihenfolge verwendet werden.'
+    successful:
+      fly:
+        of: '&2Die Flug Geschwindigkeit von &a%of% &2wurde zu &a%speed% &2gesetzt.'
+        by: '&2Deine Flug Geschwindigkeit wurde von &a%by% &2auf &a%speed% &2gesetzt.'
+        own: '&2Deine Flug Geschwindigkeit wurde auf &a%speed% &2gesetzt.'
+      walk:
+        of: '&2Die Lauf Geschwindigkeit von &a%of% &2wurde zu &a%speed% &2gesetzt.'
+        by: '&2Deine Lauf Geschwindigkeit wurde von &a%by% &2auf &a%speed% &2gesetzt.'
+        own: '&2Deine Lauf Geschwindigkeit wurde auf &a%speed% &2gesetzt.'
+      both:
+        of: '&2Die Lauf & Flug Geschwindigkeit von &a%of% &2wurde zu &a%speed% &2gesetzt.'
+        by: '&2Deine Lauf & Flug Geschwindigkeit wurde von &a%by% &2auf &a%speed% &2gesetzt.'
+        own: '&2Deine Lauf & Flug Geschwindigkeit wurde auf &a%speed% &2gesetzt.'
+    notANumber: '&cBitte gib eine Stufe an.'
+    toLow: '&cDie Geschwindigkeitsstufe war zu tief und wurde auf Minimum gesetzt.'
+    toHigh: '&cDie Geschwindigkeitsstufe war zu hoch und wurde nun auf Maximal gesetzt.'
+  kit:
+    notExist: '&cDas gewünschte Kit existiert nicht.'
+    noPlayerFound: '&cKonnte den angegebenen Spieler nicht finden.'
+    inventoryfull: '&cDein Inventar ist zu voll um das Kit zu erhalten.'
+    inventoryfullother: '&cDas Inventar von &4%name% &cist voll.'
+    available: '&5Dir stehen folgende Kits derzeit zur verfügung :'
+    permission:
+      missing: '&cDu hast nicht die erforderlichen Rechte für das gewünschte Kit.'
+      other: '&cDu hast keine Rechte anderen Spielern ein Kit zu geben.'
+    successful:
+      own: '&2Du hast das gewünschte Kit erfolgreich erhalten.'
+      by: '&2Du hast das Kit &a%kit% &2von &a%by% &2erhalten.'
+      of: '&2Das Kit &a%kit% &2wurde &a%of% &2erfolgreich gegeben.'
+  gender:
+    genders:
+      frau: female
+      mann: male
+      weiblich: female
+      maennlich: male
+      maedchen: female
+      junge: male
+    needPerm: '&cDu hast nicht die benötigten Rechte um dein Geschlecht zu setzten.'
+    available: '&cKonnte das angegebene Geschlecht nicht finden. Bitte benutze eines aus der folgenden Liste :'
+    wrongFormat: '&cBitte gib dein Geschlecht an.'
+    successful: '&2Dein Geschlecht wurde erfolgreich gesetzt.'
+  birthday:
+    needPerm: '&cDu hast derzeit keine Rechte dein Geburtsdatum zu setzen.'
+    wrongFormat: '&cFalsches Geburtsdatum Format. Bitte verwende dd.mm.yyyy oder mm-dd-yyyy'
+    successful: '&2Geburtsdatum wurde erfolgreich gesetzt.'
+  fly:
+    permission:
+      own: '&cDu hast keine Rechte um den Flug Befehl zu verwenden.'
+      other: '&cDu kannst keinem anderen das Fliegen aktivieren oder deaktivieren.'
+    syntax:
+      1: '&cBitte verwende /%cmd% <Spieler> oder /%cmd% <on/off>'
+      2: '&cBitte benutze /%cmd% <Spieler> <on/off>'
+    active:
+      own: '&2Du kannst nun fliegen wie eine Elfe.'
+      by: '&a%by% &2hat dir das Fliegen wie eine Elfe soeben freigeschaltet.'
+      of: '&a%of% &2kann nun fliegen wie eine Elfe.'
+    inactive:
+      own: '&2Du bist jetzt zu schwer zum Fliegen.'
+      by: '&a%by% &2hat dein Gewicht erhöht, du kannst deshalb nun nicht mehr Fliegen.'
+      of: '&2Das Gewicht von &a%of% &2wurde angehoben und ist nun zu schwer zum Fliegen.'
+  plot:
+    use-world-default: '&9Verwende die als Standart gesetzte Regionsdefinierung.'
+    noFreeRegion: '&cKonnte leider keine Freie Region mehr auf dieser Welt finden.'
+    noRegionWithTeleport: '&cKonnte keine Region mit Teleport-Punkt auf dieser Welt finden. Bitte versuch es noch einmal.'
+    successful: '&aDu wurdest erfolgreich zu einer Freien Region Teleportiert.'
+    permission:
+      empty: '&cDu hast keine Rechte zu einer beliebigen Freien Region dich zu Teleportieren.'
+      use: '&cDu hast keine Rechte diesen Befehl zu verwenden.'
+  invisible:
+    wrongSyntax:
+      1: '&cKonnte dein Parameter nicht verstehen. Bitte verwenden /%cmd% <spieler/on/off>'
+      2: '&cKonnte deine Parameter nicht verstehen. Bitte verwenden /%cmd% <spieler> <on/off>'
+    noPerm: '&cDu hast keine Rechte den Befehl zu verwenden, weder auf dich noch auf andere Spieler.'
+    successful:
+      active:
+        own: '&2Du bist nun Unsichtbar für andere Spieler.'
+        of: '&a%of% &2ist dank dir nun Unsichtbar.'
+        by: '&2Du bist durch &a%by% &2nun Unsichtbar.'
+      inactive:
+        own: '&2Du bist wieder für jeden ganz normal sichtbar.'
+        of: '&a%of% &2ist nun wieder für jeden Sichtbar.'
+        by: '&2Du bist nun wieder Sichtbar für jeden. Das ist die Schuld von &a%by%&2.'
+  nightvision:
+    wrongSyntax:
+      1: '&cKonnte dein Parameter nicht verstehen. Bitte verwenden /%cmd% <spieler/on/off>'
+      2: '&cKonnte deine Parameter nicht verstehen. Bitte verwenden /%cmd% <spieler> <on/off>'
+    noPerm: '&cDu hast keine Rechte den Befehl zu verwenden, weder auf dich noch auf andere Spieler.'
+    successful:
+      active:
+        own: '&2WoW, die Nacht sieht für dich nun beinahe wie der Tag aus.'
+        of: '&a%of% &2kann nun im Finsteren sehen.'
+        by: '&2Du kannst wegen &a%by% &2nun auch in der Finsternis sehen wie am Tage.'
+      inactive:
+        own: '&2Ohh Nein, du hast deine Kraft in der Nacht wie am Tage zu sehen verloren.'
+        of: '&a%of% &2darf nicht mehr Gott spielen und in der Nacht wie am Tage sehen.'
+        by: '&2Ohh Ohh, deine Kraft in der Nacht wie am Tage zu sehen wurde dir von &a%by% &2genommen.'
+  tphere:
+    noPermissionMore: '&cDu hast keine Berechtigung mehrere Spieler auf einmal zu dir zu Teleportieren.'
+    noPermission: '&cDu hast keine Rechte um einen Spieler zu dir zu holen.'
+    missingPlayer: '&cDu musst mindestens einen Spieler angeben der zu dir geholt werden soll.'
+    playerNotExist: '&2Konnte Spieler &a%name% &2nicht finden.'
+    goTo: '&2Du wurdest von und nach &a%name% teleportiert.'
+    successful: '&a%name% &2wurde erfolgreich zu dir Teleportiert.'
+  tp:
+    noPermission: '&2Du bist nicht berechtigt diesen Befehl zu verwenden.'
+    playerNotExist: '&2Der Spieler &a%name% &2wurde nicht gefunden.'
+    toYou: '&a%name% &2hat sich zu dir Teleportiert.'
+    successfulTo: '&2Du wurdest erfolgreich nach &a%name% &2teleportiert.'
+    noPermissionMore: '&cDu hast keine Rechte weitere Spieler zu deinem gewünschten Spieler zu Teleportieren.'
+    goTo: '&2Du wurdest von &a%by% &2nach &a%name% &2teleportiert.'
+    successfulGoTo: '&a%name% &2wurde nach &a%to% teleportiert.'
+  tpaaccept:
+    noPermission: '&cDu hast keine Rechte eine Teleport Anfrage anzunehmen.'
+    noRequest: '&cDu hast keine offene Teleport Anfrage.'
+    timeover: '&cDie Zeit der Anfrage ist abgelaufen.'
+    requesterOffline: '&cDer Anfragesteller ist nicht mehr Online.'
+    successful: '&2Du hast die Teleport Anfrage angenommen.'
+    accept: '&a%name% &2hat deine Teleport Anfrage angenommen.'
+  tpadeny:
+    noPermission: '&cDu hast keine Berechtigung eine Teleport Anfrage abzulehnen.'
+    noRequest: '&cDu hast keine offene Teleport Anfrage.'
+    denied: '&4%name% &chat deine Teleport Anfrage abgelehnt.'
+    successful: '&2Du hast die Teleport Anfrage abgelehnt.'
+  tpacancel:
+    noPermission: '&2Du hast keine Rechte eine Teleport Anfrage abzubrechen.'
+    cancel: '&a%name% &2hat die Teleport Anfrage abgebrochen.'
+    successfulAll: '&2Alle Teleport Anfragen wurde abgelehnt.'
+    noRequest: '&2Konnte keine von dir gestellte offene Anfrage finden.'
+    successful: '&2Du hast die Teleport Anfrage an &a%name% &2abgebrochen.'
+  tpahere:
+    noPermissionMore: '&cDu hast nicht die Berechtigung mehr als einen Spieler anzufrage ob dieser zu dir kommt.'
+    noPermission: '&cDu hast nicht genug Rechte um jemanden zu fragen ob die person zu dir möchte.'
+    noSyntax: '&cDu musst mindestens einen Spieler angeben.'
+    playerNotExist: '&cKonnte &4%name% &cnicht finden.'
+    playerHasOpenRequest: '&4%name% &chat bereits eine offene Anfrage.'
+    requestSend: '&2Die Teleport Anfrage wurde an &a%name% &2geschickt. Du kannst diese mit &a/tpacancel %name% &2innerhalb der nächsten &a%seconds% Sekunden &2abbrechen.' 
+    requestBecome: '&2Du hast eine Teleport Anfrage erhalt ob du zu &a%name% &2teleport werden möchtest. Du kannst diese Anfrage mit &a/tpaaccept &2annehmen oder mit &a/tpadeny &2ablehnen. Die Anfrage wird automatisch abgebrochen in &a%seconds% Sekunden&2.'
+  tpa:
+    noPermissionMore: '&cDu hast nicht die Berechtigung mehr als einen Spieler anzufrage ob diese auch zum ersten Spieler wollen.'
+    noPermission: '&cDu hast nicht genug Rechte um jemanden zu fragen ob du zu dieser Person darfst.'
+    noSyntax: '&cDu musst mindestens einen Spieler angeben.'
+    playerNotExistTo: '&4%name%&c, zu dem du möchtest, ist nicht auffindbar.'
+    playerNotExist: '&4%name% &cist nicht existenz.'
+    playerHasOpenRequestTo: '&4%name%&c, zu dem du möchtest, hat bereits eine offene Teleport Anfrage.'
+    playerHasOpenRequest: '&4%name% &chat bereits eine offene Teleport Anfrage.'
+    requestSend: '&2Die Teleport Anfrage wurde an &a%name% &2geschickt. Du kannst diese mit &a/tpacancel %name% &2innerhalb der nächsten &a%seconds% Sekunden &2abbrechen.' 
+    requestBecome: '&2Du hast eine Teleport Anfrage erhalt ob &a%name% &2sich zu dir teleportieren darf. Du kannst diese Anfrage mit &a/tpaaccept &2annehmen oder mit &a/tpadeny &2ablehnen. Die Anfrage wird automatisch abgebrochen in &a%seconds% Sekunden&2.'
+    requestBecomeMore: '&2Du hast eine Teleport Anfrage von &a%by% &2erhalten ob du dich nach &a%name% &2teleportieren möchtest. Du kannst diese Anfrage mit &a/tpaaccept &2annehmen oder mit &a/tpadeny &2ablehnen. Die Anfrage wird automatisch abgebrochen in &a%seconds% Sekunden&2.'
+  expdrop:
+    toManyParameters: '&cZu viele Parameter. Bitte benutze /%cmd% <spieler> <on/off> oder /%cmd% <spieler/on/off> oder ganz ohne Parameter.'
+    permission:
+      own: '&cDu hast keine Rechte diesen Befehl auszuführen.'
+      other: '&cDu hast keine Erlaubnis andere Spieler den ExpDrop zu aktivieren/deaktivieren.'
+    syntax:
+      1: '&cKonnte den Parameter nicht zuordnen. Bitte verwende /%cmd% <Spieler/on/off>'
+      2: '&cKonnte die Parameter nicht zuordnen. Bitte verwende /%cmd% <Spieler> <on/off>'
+    active:
+      own: '&2Du bekommst nun Erfahrungsflaschen von jedem Monster.'
+      of: '&a%name% &2erhält nun beim töten von Monstern Erfahrungsflaschen.'
+      by: '&a%name% &2hat den Erfahrungsflaschen drop bei Monstern bei dir aktiviert.'
+    deactive:
+      own: '&aDu erhälst jetzt Erfahrungskugeln beim töten von Monstern.'
+      of: '&a%name% &2bekommt jetzt nur noch Erfahrungskugeln beim töten von Monstern.'
+      by: '&a%name% &2hat den Drop von Erfahrungskugeln bei dir wieder aktiviert.'
+  give:
+    unknownerror: '&cUnbekannter Fehler. Bitte melde es dem Server Team. Danke.'
+    noItemString: '&cKonnte keine angaben zum Item finden.'
+    noItem: '&cDer angegebene Item wunsch existiert nicht.'
+    iNeedMorePlace: '&cDu brauchst mehr Platz in deinem Inventar.'
+    pNeedMorePlace: '&4%name% &chat keinen Platz im Inventar für das/die Item/s.'
+    permission:
+      other: '&cDu hast keine Berechtigung anderen Spielern ein Item zu geben.'
+      own: '&cDu hast keine Rechte diesen Befehl zu verwenden.'
+    successful:
+      own: '&2Du hast dir &a%amount% x %item% &2gegeben.'
+      from: '&2Du hast &a%amount% x %item% &2an &a%to% &2gegeben.'
+      to: '&a%from% &2hat dir &a%amount% x %item% &2ins Inventar gelegt.'
+  kill:
+    noPermission: '&cDu hast keine Rechte diesen Befehl zu verwenden.'
+    mustPlayer: '&cUm diesen Befehl ausführen zu können, muss man ein Spieler sein.'
+    missingType: '&cVermisse die angabe des Typen in den Parametern.'
+    needEntity: '&cBenötige die angabe eines Kreatur Typen.'
+    wrongType: '&cDer angegebene Type ist kein Lebendiger Type. Fur Items bitte /remove verwenden.'
+    syntax:
+      1: '&cBenötigt wird mindestens der Kreaturen Type. Maximal Creature Type, Radius & Welt'
+      2: '&cBenötige Kreaturen Type und Radius oder Kreaturen Type und Welt.'
+      3: '&cBitte gib den Kreaturen Type, Radius und die Welt an.'
+    successful:
+      all: '&2Es wurden &a%count% &2Kreaturen auf der Welt &a%world% &2entfernt.' #%count% = Number of Remove, %world% = The cleaned world
+      type: '&2Es wurden &a%count% &2von &a%creature% &2gefunden und gelöscht auf der Welt &a%world%%2.' #%count% = Number of Remove, %world% = The cleaned world, %creature% = Type of Creature
+  remove:
+    noPermission: '&cDu hast keine Rechte diesen Befehl zu verwenden.'
+    mustPlayer: '&cUm diesen Befehl ausführen zu können, muss man ein Spieler sein.'
+    missingType: '&cVermisse die angabe des Typen in den Parametern.'
+    needEntity: '&cBenötige die angabe eines Kreatur Typen.'
+    wrongType: '&cDer angegebene Type ist kein Item Type. Fur Kreaturen bitte /kill verwenden.'
+    syntax:
+      1: '&cBenötigt wird mindestens der Kreaturen Type. Maximal Creature Type, Radius & Welt'
+      2: '&cBenötige Kreaturen Type und Radius oder Kreaturen Type und Welt.'
+      3: '&cBitte gib den Kreaturen Type, Radius und die Welt an.'
+    successful:
+      all: '&2Es wurden &a%count% &2Items auf der Welt &a%world% &2entfernt.' #%count% = Number of Remove, %world% = The cleaned world
+      type: '&2Es wurden &a%count% &2von &a%creature% &2gefunden und gelöscht auf der Welt &a%world%.' #%count% = Number of Remove, %world% = The cleaned world, %creature% = Type of Creature
+  viewinventory:
+    noPermission: '&cDu hast keine Rechte in das Inventar von anderen zu schauen.'
+    noPlayerGiven: '&cDu musst einen Spielernamen angeben.'
+    noPlayerFound: '&cKonnte den angegebenen Spieler nicht Online finden.'
+  regionsign:
+    needSyntax: ''
+    needRegion: ''
+    needPrice: ''
+    needSignType: ''
+    beginning: ''
+    notImplemented: ''
+    buy:
+      noRegionsInWorld: ''
+      noUpdates: ''
+      updatedPrice: ''
+  setachievement:
+    missingType: ''
+    missingAchievement: ''
+    missingPlayer: ''
+    meGiven: ''
+    otherGiven: ''
+    otherNotGiven: ''
+    selfNotGiven: ''
+    meTaked: ''
+    otherTake: ''
+    otherNotTake: ''
+    selfNotTake: ''
+function:
+  gamestore:
+    emptychest: '&cDu hast derzeit keine gekauften Items vom GameStore.'
+  achievment:
+    economy: '&2Du hast für den Erfolg %achievment% %amount% %currency% &2erhalten.'
+    items: '&2Für den Erfolg %achievment% &2hast du &a%amount% x %item% &2erhalten.'
+    announce: '&a%name% &2hat den Erfolg %achievment% &2errungen.'
+    achievment:
+      open_inventory: '&aInventur'
+      mine_wood: '&aDrei mal auf Holz geklopft'
+      build_workbench: '&aFortgeschrittenes Handwerk'
+      build_hoe: '&aFang an zu ackern'
+      build_pickaxe: '&aGlück auf'
+      build_furnace: 'Heisse Angelegenheit'
+      build_better_pickaxe: '&aTechnischer Fortschritt'
+      build_sword: '&aZu den Waffen'
+      kill_enemy: '&aMonsterjaeger'
+      acquire_iron: '&aSchmiedekunst'
+      kill_cow: '&aKuhschubser'
+      snipe_skeleton: '&5Scharfschüzenduell'
+      on_a_rail: '&5Bahn Frei'
+      fly_pig: '&5Wenn Schweine Fliegen'
+      cook_fish: '&aKoestlicher Fisch'
+      breed_cow: '&aNachzucht'
+      make_bread: '&aBacke Brot'
+      get_diamonds: '&aDiamanten'
+      bake_cake: '&aDie Lüge'
+      overpowered: '&5übermächtig'
+      enchantments: '&aVerzauberer'
+      bookcase: '&aBibliothekar'
+      nether_portal: '&aWir muessen noch tiefer'
+      get_blaze_rod: '&aSpiel mit dem Feuer'
+      ghast_return: '&5Zurueck zum Absender'
+      brew_potion: '&aAlchemie'
+      diamonds_to_you: '&aDiamanten fuer dich'
+      overkill: '&5Meister des Kampfes'
+  bed:
+    save: '&aNeuen Bed Home-Punkt gesetzt.'
+  cmdCoolDown:
+    wait: '&cDu musst noch %time% warten bis du den Befehl wieder verwenden kannst.'
+  blockedworld:
+    use: '&cDer von dir ausgeführte Befehl ist auf dieser Welt Gesperrt.'
+  time:
+    day: 'Tag'
+    days: 'Tage'
+    hour: 'Stunde'
+    hours: 'Stunden'
+    minute: 'Minute'
+    minutes: 'Minuten'
+    second: 'Sekunde'
+    seconds: 'Sekunden'
+    and: ' und '
+    sepa: ', '
+  tprequests:
+    cancel:
+      sender: '&cDie Teleport Anfrage an &4%name% &cwurde automatisch abgebrochen.'
+      receiver: '&cDie Teleport Anfrage von &4%name% &cwurde automatisch abgelehnt.'
+  checkkill:
+    forKill: '&2Du hast &a%amount% %currency% &2für das erledigen von &a%type% &2erhalten.'
+  disposal:
+    created: '&aDu hast soeben einen Mülleimer erstellt.'
+  chat:
+    notAllowed: '&cDu musst zuerst dein Geschlecht und Geburtsdatum zu deinem Profil hinzufügen. Bitte mach zuerst /geschlecht <maennlich/weiblich> und /geburtsdatum <tt.mm.jjjj>, Vielen dank.'
+  rentfly:
+    timeend: '&cDeine Flugzeit ist soeben abgelaufen.'
+    noPerm: '&4Du hast keine Rechte dieses Schild zu verwenden.'
+    noTime: '&cDu hast derzeit keine Flugzeit gemietet.'
+    leftTime: '&aDu hast noch %time% Minuten Flugzeit übrig.' #%time%
+    needMoney: '&cDu brauchst mehr Geld um dir diese Flugzeit leisten zu können.'
+    add: '&aDu hast erfolgreich weitere %time% Minuten Flugzeit erworben. Deine gesamte Flugzeit beträgt nun %total% Minuten.' #%time% %total%
+    set: '&aDu hast erfolgreich %time% Minuten Flugzeit gemietet. Du kannst nun das Fliegen mit /fly aktivieren und deaktivieren.' #%time%
+    noPermCreate: '&cDu hast keine Rechte um ein Schild dieser Art zu erstellen.'
+    infosign: '&aInfo Schild wurde erfolgreich erstellt.'
+    needTime: '&cBenötige eine Zeitangabe in Minuten in Zeile 3.'
+    needPrice: '&cBenötige eine Preisangabe in Zeile 4.'
+    createdsign: '&aDas RentFly Schild wurde erfolgreich erstellt.'
+    over: '&aDu hast noch eine Flugzeit von %time% Minuten über.' #%time%
+  fly:
+    denied: '&cDu hast soeben eine Welt betreten on der das Fliegen Verboten ist.'
+    command: '&cDu befindest dich auf einer Welt in der du den Befehl zum Fliegen nicht verwenden darfst.'
+region:
+  remove:
+    all: '&2Region &a%region% &2steht nun nicht mehr zum Verkauf zur verfügung.'
+    sign: '&2Schild für Region &a%region% &2wurde erfolgreich entfernt.'
+  setsign:
+    world-not-exist: '&cDie angegebene Welt in Zeile 2 existiert nicht.'
+    missing:
+      region: '&cDu hast vergessen in Zeile 3 eine Region anzugeben.'
+      price: '&cBitte gib in Zeile 4 einen Preis an. Dahinter kannst du ein :t setzen um beim Kauf von der Region zur Region Teleportiert zu werden.'
+    noregion: '&cKonnte die angegebene Region nicht finden.'
+    not-a-price: '&cDer Preis muss eine Zahl sein.'
+    successful: '&2Region kauf und Verkaufsschild wurde erfolgreich erstellt.'
+  sign:
+    toFastClick: '&cDu hast zu schnell geklickt. Bitte warte einige Sekunden.'
+    buy:
+      unregisted: '&cDieses Schild ist fehlerhaft. Bitte Informiere das Team. Danke.'
+      isOwned: '&cDiese Region gehört bereits jemanden.'
+      needMoney: '&cDu brauchst mehr Geld für diese Region.'
+      successful: '&2Du hast die Region erfolgreich gekauft. Bitte vergiss nicht /sethome (Home-Punkt Name) zu machen um zu deinem Grundstück zurück zu finden.'
+    sell:
+      notTheOwner: '&cDu kannst das Grundstück nicht verkaufen. Da du nicht der Eigentümer von diesem Grundstück bist.'
+      mustSneak: '&cDu musst gebückt sein um das Grundstück zu verkaufen.'
+      needStick: '&cDu musst einen Stock in der Hand halt zum Verkaufen.'
+      successful: '&aDu hast die Region %region% erfolgreich für %price% verkauft.'
+  names:
+    k: Kleines
+    kleines: Pfad
+    m: Mittleres
+    mittleres: Weg
+    g: Grosses
+    grosses: Strasse
+    l: Luxus
+    luxus: Allee
+    c: Creative
+    creative: Strasse
+    n: Nord
+    s: Sued
+    w: West
+    o: Ost
+    num: 'Nr.'

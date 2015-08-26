@@ -1,0 +1,223 @@
+name: Customs
+version: 1.2
+author: Bl4ckSkull666
+main: de.bl4ckskull666.customs.Customs
+depend: [UUIDDatabase,Mu1ti1ingu41]
+softdepend: [WorldGuard,LWC,Vault,GroupManager,Citizens,FrameProtect]
+website: http://www.AMC-Server.de
+prefix: Cust
+commands:
+  worldtp:
+    description: ''
+    usage: /<command>
+  aworld:
+    description: ''
+    usage: /<command>
+  spawn:
+    description: Back to the spawn Point of the Server
+    usage: /<command>
+  setspawn:
+    description: ''
+    usage: /<command>
+  delspawn:
+    description: ''
+    usage: /<command>
+  clearinventory:
+    description: Clear your Inventory
+    aliases: [cinv]
+    usage: /<command> <username>
+  fly:
+    description: Activate/Deactivate Fly mode
+    usage: /<command>
+    aliases: [fliegen]
+  gamemode:
+    description: ''
+    usage: /<command>
+    aliases: [setgm,setgamemode,gm]
+  home:
+    description: Go Back to the point where you have set it before.
+    usage: /<command> <home-point>
+  sethome:
+    description: Sets a new Home-Point
+    usage: /<command> <home-point>
+  delhome:
+    description: Remove a Home-Point
+    usage: /<command> <home-point>
+  back:
+    description: Back to the last position before Teleport
+    usage: /<command>
+    aliases: [zurueck]
+  warp:
+    description: Go to the point where is set the warp point.
+    usage: /<command> <warp-point>
+  setwarp:
+    description: Sets a new Warp-Point
+    usage: /<command> <home-point>
+  delwarp:
+    description: Remove a Warp-Point
+    usage: /<command> <warp-point>
+  speed:
+    description: Set your walk & fly speed 
+    usage: /<command> <type> <player> <level>
+    aliases: [geschwindigkeit]
+  birthday:
+    description: Set your birthday
+    usage: /<command> <birthday>
+    aliases: [geburtstag,geburtsdatum]
+  gender:
+    description: Set your Gender
+    usage: /<command> <gender>
+    aliases: [geschlecht]
+  kit:
+    description: Give you a specified Kit like name 
+    usage: /<command> <kit>
+  plot:
+    description: Teleports you to a free plot, i hope.
+    usage: /<command> <plotname begin>
+    aliases: [grundstueck,gs]
+  invisible:
+    description: Give you a specified Kit like name 
+    usage: /<command> <player> <status>
+    aliases: [visible,unsichtbar,sichtbar]
+  nightvision:
+    description: Give you a specified Kit like name 
+    usage: /<command> <player> <status>
+    aliases: [nvision,nachtsicht,nsicht]
+  creload:
+    description: Reload view things 
+    usage: /<command>
+  tp:
+    description: Teleports you to player
+    usage: /<command> <player>
+  tphere:
+    description: Teleports a player to your position
+    usage: /<command> <player> <player> ...
+  tpa:
+    description: Send a teleport request to user to teleport to users position
+    usage: /<command> <player> <playerToPlayer> ...
+  tpahere:
+    description: Send a teleport request to user to teleport to your position
+    usage: /<command> <player> <player> ...
+  tpacancel:
+    description: Cancel a sended teleport request
+    usage: /<command> <player>
+  tpadeny:
+    description: Deny a teleport request 
+    usage: /<command>
+  tpaaccept:
+    description: Accept a teleport request
+    usage: /<command>
+    aliases: [tpaccpet]
+  broadcast:
+    description: Broadcast a message to all online Players.
+    usage: /<command> <message>
+  expdrop:
+    description: Let you drop Exp-Bottles from Monsters.
+    usage: /<command> <on/off>
+  kill:
+    description: Kill all Creatures.
+    usage: /<command> <type> <radius> <world>
+  remove:
+    description: Removed droped Items and other not living entitys.
+    usage: /<command> <type> <radius> <world>
+  give:
+    description: Gives you or other ppl the given Item.
+    usage: /<command> <player> <item string>
+    aliases: [gsign]
+  viewinventory:
+    description: View in tne Inventory of other players.
+    usage: /<command>
+  infoitem:
+    description: Views few informations about the item in your hand.
+    usage: /<command>
+  spawnmob:
+    description: Allow Spawning Animals,Monsters and Vehicles.
+    usage: /<command>
+  deathgs:
+    description: View a list of the death plots.
+    usage: /<command> <world/all> <page> or /<command> <goto/clear> <plotId>
+  regionsign:
+    description: Change the price of one or more Region Signs.
+    usage: /<command> <buy/let/rent> <world:region_begin> <new price>
+  userinfo:
+    description: View informations about a user.
+    usage: /<command> <username>
+  achievements:
+    description: Give/Take Player Achievement.
+    usage: /<command> <type> <username> <achievement>
+  member:
+    description: Add Members to your own Region.
+    usage: /<command> <username> <username>
+    aliases: [members]
+  mobdeny:
+    description: Standing on your plot to use. Deny the spawn of Creatures in the region.
+    usage: /<command> <type>
+  mobspawn:
+    description: Standing on your plot to use. Use to allow/deny spawn Animals/Monsters in the region.
+    usage: /<command>
+  access:
+    description: Standing on your plot to use. Set access to region and no access message.
+    usage: /<command> <optional:message/clear = remove message>
+  greeting:
+    description: Standing on your plot to use. Sets a welcomes message for your region.
+    usage: /<command> <(+)message/clear = remove message>
+  farewell:
+    description: Standing on your plot to use. Sets a good bye message for your region.
+    usage: /<command> <(+)message/clear = remove message>
+  myhome:
+    description: List all your Plots.
+    usage: /<command>
+    aliases: [meinzuhause]
+  help:
+    description: Currently only a test command
+    usage: /<command>
+    aliases: [hilfe,support,ticket]
+  register:
+    description: Dummy for BungeeCord - Register your Forum Account
+    usage: /<command> <e@ma.il> <e@ma.il>
+  password:
+    description: Dummy for BungeeCord - For Later
+    usage: /<command> <password> <password>
+  ip:
+    description: Dummy for BungeeCord - Admin Command
+    usage: /command <playername>
+  glist:
+    description: Dummy for BungeeCord - List all Connected Players
+    usage: /command
+  vote:
+    description: Dummy for BungeeCord
+    usage: /command 
+  ban:
+    description: Dummy for BungeeCord
+    usage: /command
+  tempban:
+    description: Dummy for BungeeCord
+    usage: /command
+  mute:
+    description: Dummy for BungeeCord
+    usage: /command
+  tempmute:
+    description: Dummy for BungeeCord
+    usage: /command
+  ipban:
+    description: Dummy for BungeeCord
+    usage: /command
+  iptempban:
+    description: Dummy for BungeeCord
+    usage: /command
+  ipmute:
+    description: Dummy for BungeeCord
+    usage: /command
+  iptempmute:
+    description: Dummy for BungeeCord
+    usage: /command
+  unban:
+    description: Dummy for BungeeCord
+    usage: /command
+  unmute:
+    description: Dummy for BungeeCord
+    usage: /command
+  ride:
+    description: Allow you to ride on a Animal/Monster
+    usage: /command
+    aliases: [riding,reiten]

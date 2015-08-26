@@ -1,0 +1,280 @@
+break-spawner-in-own-region-only: true
+mobtypes:
+  creeper: 50
+  skeleton: 51
+  spider: 52
+  giant: 53
+  zombie: 54
+  slime: 55
+  ghast: 56
+  pig_zombie: 57
+  enderman: 58
+  cave_spider: 59
+  silverfish: 60
+  blaze: 61
+  magma_cube: 62
+  ender_Ddagon: 63
+  wither: 64
+  bat: 65
+  witch: 66
+  pig: 90
+  sheep: 91
+  cow: 92
+  chicken: 93
+  squid: 94
+  wolf: 95
+  mushroom_cow: 96
+  snowman: 97
+  ozelot: 98
+  iron_golem: 99
+  horse: 100
+  villager: 120
+message:
+  join: ''
+  quit: ''
+  kick: ''
+cmdCost: []
+defaultLanguage: 'de'
+useSpawnAsJoin: true
+customLanguages:
+  at: 'de'
+  ch: 'de'
+blockCmdOnWorld: []
+cmdCoolDown:
+  home: 180
+max-fly-speed: 0.8
+max-walk-speed: 0.8  
+chat-format:
+  default: '{world}&f<&2{name}&f> &6{msg}'
+  owner: '{world}&f<&c{name}{age}&f> &6{msg}'
+  admin: '{world}&f<&4{name}{age}&f> &6{msg}'
+  Moderator: '{world}&f<&5{name}{age}&f> &6{msg}'
+  vip: '{world}&f<&3{name}{age}&f> &6{msg}'
+  premium: '{world}&f<&a{name}{age}&f> &6{msg}'
+  einwohner: '{world}&f<&2{name}{age}&f> &6{msg}'
+chat-world-prefix:
+  default: ''
+  farmwelt: '&f<&9FW&f>'
+  pvpfarmwelt: '&f<&9PFW&f>'
+  nether: '&f<&9NW&f>'
+  weltdestodes: '&f<&9WoD&f>'
+  rallyingcity: '&f<&9Ice&f>'
+  creativewelt: '&f<&9CW&f>'
+  jumpnrun: '&f<&9JnR&f>'
+  event: '&f<&9Eve&f>'
+  minigames: '&f<&9MGL&f>'
+  mariokart: '&f<&9Mario&f>'
+  quake: '&f<&9Quake&f>'
+  minejong: '&f<&9&f>'
+chat-gender-color:
+  use: true
+  male: '&9'
+  female: '&c'
+  none: '&7'
+chat-verify-color:
+  isverify: '&2'
+  isnotverify: '&e'
+welcome-kit:
+  default:
+  - chainmail_boots 1 protection:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - chainmail_leggings 1 protection:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - chainmail_chestplate 1 protection:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - chainmail_helmet 1 protection:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - iron_sword 1 looting:1 unbreaking:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - iron_hoe 1 unbreaking:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - iron_spade 1 unbreaking:2 efficiency:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - iron_pickaxe 1 unbreaking:2 efficiency:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - iron_axe 1 unbreaking:2 efficiency:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - shears 1 unbreaking:2 efficiency:2 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - compass 1 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - bread 64 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  - name_tag 5 lore:&aWelcome|&apresent|&aon_this|&aServer. name:&9Welcome
+  de:
+  - chainmail_boots 1 protection:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - chainmail_leggings 1 protection:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - chainmail_chestplate 1 protection:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - chainmail_helmet 1 protection:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - iron_sword 1 looting:1 unbreaking:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - iron_hoe 1 unbreaking:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - iron_spade 1 unbreaking:2 efficiency:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - iron_pickaxe 1 unbreaking:2 efficiency:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - iron_axe 1 unbreaking:2 efficiency:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - shears 1 unbreaking:2 efficiency:2 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - compass 1 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - bread 64 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+  - name_tag 5 lore:&2Willkommens|&2Geschenk|&2auf_diesem|&2Server. name:&9Willkommen
+default-plot:
+  neustadt: 'k_'
+  creativewelt: 'creative_'
+achievment:
+  items:
+    open_inventory:
+    - emerald 1
+  economy:
+    open_inventory: 750
+    mine_wood: 100
+    build_workbench: 100
+    build_pickaxe: 100
+    build_furnace: 100
+    acquire_iron: 100
+    build_hoe: 100
+    make_bread: 100
+    bake_cake: 100
+    build_better_pickaxe: 100
+    cook_fish: 100
+    on_a_rail: 100
+    build_sword: 100
+    kill_enemy: 100
+    kill_cow: 100
+    fly_pig: 100
+    snipe_skeleton: 100
+    get_diamonds: 100
+    nether_portal: 100
+    ghast_return: 100
+    get_blaze_rod: 100
+    brew_potion: 100
+    end_portal: 100
+    the_end: 100
+    enchantments: 100
+    overkill: 100
+    bookcase: 100
+    explore_all_boimes: 100
+    spawn_wither: 100
+    kill_wither: 100
+    full_beacon: 100
+    breed_cow: 100
+    diamonds_to_you: 100
+    overpowered: 100
+#Time in Seconds
+#Living Entity = CREEPER, SKELETON, SPIDER, GIANT, ZOMBIE, SLIME, GHAST, PIG_ZOMBIE, ENDERMAN, CAVE_SPIDER, SILVERFISH, BLAZE, MAGMA_CUBE, ENDER_DRAGON, WITHER, BAT, WITCH, ENDERMITE, GUARDIAN, PIG, SHEEP, COW, CHICKEN, SQUID, WOLF, MUSHROOM_COW, SNOWMAN, OCELOT, IRON_GOLEM, HORSE, RABBIT, VILLAGER, PLAYER
+removeEntity:
+  neustadt:
+    time: 120
+    type:
+    - creeper
+    - skeleton
+    - spider
+    - giant
+    - zombie
+    - ghast
+    - pig_zombie
+    - enderman
+    - cave_spider
+    - silverfish
+    - blaze
+    - magma_cube
+    - ender_dragon
+    - wither
+    - witch
+    - endermite
+    - guardian
+pay-for-kill:
+  ender_dragon: 500
+  wither: 1000
+region:
+  moneyback: 50
+allow-chat-only-with-gender-age: true
+plots:
+  world:
+    default: 3
+homes:
+  default: 4
+gamestore:
+  inv-save-path: './plugins/Customs/gamestore/'
+  server: 'default'
+protect-npc-on-world:
+  farmworld:
+  - villager
+  - iron_golem
+  pvpfarmworld:
+  - villager
+  - iron_golem
+protect-world-by-npc:
+  farmworld:
+    villager: 30
+    iron_golem: 30
+  pvpfarmworld:
+    villager: 30
+    iron_golem: 30
+forbidden-fly-worlds:
+- rallyingcity
+- jumpnrun
+- event
+deactivate:
+  function:
+    breakspawner: false
+    breakcommandblock: false
+    fixflintandsteel: false
+    buyandsellsign: false
+    chat: false
+    join-left-message: false
+    join: false
+    achievments: false
+    disposal: false
+    checkkill: false
+    repairsign: false
+    rentfly: false
+    gamestore: false
+    npcprotection: false
+    tabcomplete: false
+  command:
+    plot: false
+    deathgs: false
+    regionsign: false
+    member: false
+    mobdeny: false
+    mobspawn: false
+    greeting: false
+    farewell: false
+    access: false
+    myhome: false
+    expdrop: false
+    viewinventory: false
+    worldtp: false
+    aworld: false
+    clearinventory: false
+    fly: false
+    gamemode: false
+    speed: false
+    birthday: false
+    gender: false
+    kit: false
+    invisible: false
+    nightvision: false
+    creload: false
+    broadcast: false
+    give: false
+    kill: false
+    remove: false
+    infoitem: false
+    spawnmob: false
+    userinfo: false
+    achievments: false
+    help: true
+    spawn: false
+    home: false
+    warp: false
+    back: false
+    tp: false
+    tphere: false
+    tpa: false
+    tpahere: false
+    tpacancel: false
+    tpadeny: false
+    tpaaccept: false
+  dummy:
+    register: false
+    password: true
+    ip: true
+    glist: false
+    vote: false
+    ban: false
+    ipban: false
+    tempban: false
+    iptempban: false
+    unban: false
+    mute: false
+    tempmute: false
+    iptempmute: false
+    ipmute: false
+    unmute: false
