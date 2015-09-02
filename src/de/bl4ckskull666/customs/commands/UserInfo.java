@@ -105,9 +105,13 @@ public class UserInfo implements CommandExecutor {
                     if(pd.getVerify()) {
                         pd.setVerify(false);
                         s.sendMessage("The Birthday and Gender is now no more marked as verified.");
+                        if(Bukkit.getPlayer(UUID.fromString(pd.getUUID())) != null)
+                            Customs.sendPluginMessage(Bukkit.getPlayer(UUID.fromString(pd.getUUID())), "verify", false);
                     } else {
                         pd.setVerify(true);
                         s.sendMessage("The Birthday and Gender is now marked as verified.");
+                        if(Bukkit.getPlayer(UUID.fromString(pd.getUUID())) != null)
+                            Customs.sendPluginMessage(Bukkit.getPlayer(UUID.fromString(pd.getUUID())), "verify", true);
                     }
                     return true;
                 case "setgroup":

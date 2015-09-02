@@ -60,29 +60,26 @@ public final class PlayerData {
     private long _lastUse = 0L;
     
     public PlayerData(String name) {
-        if(!Customs.getPlugin().getDataFolder().exists())
-            Customs.getPlugin().getDataFolder().mkdir();
-        
-        File uFolder = new File(Customs.getPlugin().getDataFolder(), "users");
-        if(!uFolder.exists())
-            uFolder.mkdir();
+        File folder = new File(Customs.getPlugin().getConfig().getString("user-data-save-path", Customs.getPlugin().getName() + "/users"));
+        if(!folder.exists())
+            folder.mkdirs();
         
         if(name.length() <= 32) {
             _name = name;
-            String uuid = UUIDDatabase.getUUIDByName(name);
-            if(uuid.length() < 36)
+            UUID uuid = Utils.getUUIDByOfflinePlayer(_name);
+            if(uuid == null)
                 _uuid = UUID.fromString("00000000-0000-0000-0000-000000000000");
             else
-                _uuid = UUID.fromString(uuid);
+                _uuid = uuid;
         } else {
             name = name.replace("-", "");
             name = name.replaceFirst("([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)", "$1-$2-$3-$4-$5");
             _uuid = UUID.fromString(name);
-            _name = UUIDDatabase.getNameByUUID(name);
+            _name = Utils.getNameByOfflinePlayer(name);
         }
-        File uFile = new File(uFolder, _uuid.toString() + ".yml");
-        File uNFile = new File(uFolder, name + ".yml");
-        File uNLFile = new File(uFolder, name.toLowerCase() + ".yml");
+        File uFile = new File(folder, _uuid.toString() + ".yml");
+        File uNFile = new File(folder, name + ".yml");
+        File uNLFile = new File(folder, name.toLowerCase() + ".yml");
         if(uFile.exists()) {
             setPlayerDatas(uFile);
         } else if(uNFile.exists()) {
@@ -103,19 +100,16 @@ public final class PlayerData {
     }
     
     public PlayerData(Player p) {
-        if(!Customs.getPlugin().getDataFolder().exists())
-            Customs.getPlugin().getDataFolder().mkdir();
-        
-        File uFolder = new File(Customs.getPlugin().getDataFolder(), "users");
-        if(!uFolder.exists())
-            uFolder.mkdir();
+        File folder = new File(Customs.getPlugin().getConfig().getString("user-data-save-path", Customs.getPlugin().getName() + "/users"));
+        if(!folder.exists())
+            folder.mkdirs();
         
         _name = p.getName();
         _uuid = p.getUniqueId();
         
-        File uFile = new File(uFolder, p.getUniqueId().toString() + ".yml");
-        File uNFile = new File(uFolder, p.getName() + ".yml");
-        File uNLFile = new File(uFolder, p.getName().toLowerCase() + ".yml");
+        File uFile = new File(folder, p.getUniqueId().toString() + ".yml");
+        File uNFile = new File(folder, p.getName() + ".yml");
+        File uNLFile = new File(folder, p.getName().toLowerCase() + ".yml");
         if(uFile.exists()) {
             setPlayerDatas(uFile);
         } else if(uNFile.exists()) {
@@ -133,86 +127,83 @@ public final class PlayerData {
     
     private void setPlayerDatas(File f) {
         FileConfiguration u = YamlConfiguration.loadConfiguration(f);
-        if(u.isConfigurationSection("homes")) {
-            for(String name : u.getConfigurationSection("homes").getKeys(false)) {
-                if(!u.isString("homes." + name + ".world") ||
-                        !u.isDouble("homes." + name + ".x") ||
-                        !u.isDouble("homes." + name + ".y") ||
-                        !u.isDouble("homes." + name + ".z") ||
-                        !u.isDouble("homes." + name + ".yaw") ||
-                        !u.isDouble("homes." + name + ".pitch")) {
+        String mainString = u.isConfigurationSection(Customs.getPlugin().getConfig().getString("server-name", "default"))?Customs.getPlugin().getConfig().getString("server-name", "default") + ".":"";
+        if(u.isConfigurationSection(mainString + "homes")) {
+            for(String name : u.getConfigurationSection(mainString + "homes").getKeys(false)) {
+                if(!u.isString(mainString + "homes." + name + ".world") ||
+                        !u.isDouble(mainString + "homes." + name + ".x") ||
+                        !u.isDouble(mainString + "homes." + name + ".y") ||
+                        !u.isDouble(mainString + "homes." + name + ".z") ||
+                        !u.isDouble(mainString + "homes." + name + ".yaw") ||
+                        !u.isDouble(mainString + "homes." + name + ".pitch")) {
                     continue;
                 }
                 
-                if(Bukkit.getWorld(u.getString("homes." + name + ".world")) == null)
+                if(Bukkit.getWorld(u.getString(mainString + "homes." + name + ".world")) == null)
                     continue;
                 
-                Location loc = new Location(Bukkit.getWorld(u.getString("homes." + name + ".world")),
-                        u.getDouble("homes." + name + ".x"),
-                        u.getDouble("homes." + name + ".y"),
-                        u.getDouble("homes." + name + ".z"),
-                        (float)u.getDouble("homes." + name + ".yaw"),
-                        (float)u.getDouble("homes." + name + ".pitch"));
+                Location loc = new Location(Bukkit.getWorld(u.getString(mainString + "homes." + name + ".world")),
+                        u.getDouble(mainString + "homes." + name + ".x"),
+                        u.getDouble(mainString + "homes." + name + ".y"),
+                        u.getDouble(mainString + "homes." + name + ".z"),
+                        (float)u.getDouble(mainString + "homes." + name + ".yaw"),
+                        (float)u.getDouble(mainString + "homes." + name + ".pitch"));
                 
                 _homes.put(name, loc);
             }
         }
         
-        if(u.isConfigurationSection("lastlocation")) {
-            if(Bukkit.getWorld(u.getString("lastlocation.world")) != null) {
-                _lastPos = new Location(Bukkit.getWorld(u.getString("lastlocation.world")),
-                    u.getDouble("lastlocation.x"),
-                    u.getDouble("lastlocation.y"),
-                    u.getDouble("lastlocation.z"),
-                    (float)u.getDouble("lastlocation.yaw"),
-                    (float)u.getDouble("lastlocation.pitch"));
+        if(u.isConfigurationSection(mainString + "lastlocation")) {
+            if(Bukkit.getWorld(u.getString(mainString + "lastlocation.world")) != null) {
+                _lastPos = new Location(Bukkit.getWorld(u.getString(mainString + "lastlocation.world")),
+                    u.getDouble(mainString + "lastlocation.x"),
+                    u.getDouble(mainString + "lastlocation.y"),
+                    u.getDouble(mainString + "lastlocation.z"),
+                    (float)u.getDouble(mainString + "lastlocation.yaw"),
+                    (float)u.getDouble(mainString + "lastlocation.pitch"));
             }
         }
         
-        if(u.isConfigurationSection("logoutlocation")) {
-            if(Bukkit.getWorld(u.getString("logoutlocation.world")) != null) {
-                _logOutPos = new Location(Bukkit.getWorld(u.getString("logoutlocation.world")),
-                    u.getDouble("logoutlocation.x"),
-                    u.getDouble("logoutlocation.y"),
-                    u.getDouble("logoutlocation.z"),
-                    (float)u.getDouble("logoutlocation.yaw"),
-                    (float)u.getDouble("logoutlocation.pitch"));
+        if(u.isConfigurationSection(mainString + "logoutlocation")) {
+            if(Bukkit.getWorld(u.getString(mainString + "logoutlocation.world")) != null) {
+                _logOutPos = new Location(Bukkit.getWorld(u.getString(mainString + "logoutlocation.world")),
+                    u.getDouble(mainString + "logoutlocation.x"),
+                    u.getDouble(mainString + "logoutlocation.y"),
+                    u.getDouble(mainString + "logoutlocation.z"),
+                    (float)u.getDouble(mainString + "logoutlocation.yaw"),
+                    (float)u.getDouble(mainString + "logoutlocation.pitch"));
             }
         }
         
-        if(u.isConfigurationSection("timestamps")) {
-            for(String name : u.getConfigurationSection("timestamps").getKeys(false)) {
-                if(u.isConfigurationSection("timestamps." + name)) {
-                    for(String na : u.getConfigurationSection("timestamps." + name).getKeys(false)) {
-                        if(u.isLong("timestamps." + name + "." + na)) {
-                            _timestamps.put(name + "_" + na, u.getLong("timestamps." + name + "." + na));
+        if(u.isConfigurationSection(mainString + "timestamps")) {
+            for(String name : u.getConfigurationSection(mainString + "timestamps").getKeys(false)) {
+                if(u.isConfigurationSection(mainString + "timestamps." + name)) {
+                    for(String na : u.getConfigurationSection(mainString + "timestamps." + name).getKeys(false)) {
+                        if(u.isLong(mainString + "timestamps." + name + "." + na)) {
+                            _timestamps.put(name + "_" + na, u.getLong(mainString + "timestamps." + name + "." + na));
                         }
                     }
                 } else {
-                    if(u.isLong("timestamps." + name))
-                        _timestamps.put(name, u.getLong("timestamps." + name));
+                    if(u.isLong(mainString + "timestamps." + name))
+                        _timestamps.put(name, u.getLong(mainString + "timestamps." + name));
                 }
             }
         }
         
-        if(u.isList("achievments")) {
-            for(String str: u.getStringList("achievments")) {
+        if(u.isList(mainString + "achievments")) {
+            for(String str: u.getStringList(mainString + "achievments")) {
                 _achievments.put(str, -1L);
             }
-        } else if(u.isConfigurationSection("achievments")) {
-            for(String str: u.getConfigurationSection("achievments").getKeys(false)) {
-                _achievments.put(str, u.getLong("achievments." + str, 0));
+        } else if(u.isConfigurationSection(mainString + "achievments")) {
+            for(String str: u.getConfigurationSection(mainString + "achievments").getKeys(false)) {
+                _achievments.put(str, u.getLong(mainString + "achievments." + str, 0));
             }
         }
         
-        if(u.isList("holdingItems")) {
-            for(String str: u.getStringList("holdingItems")) {
+        if(u.isList(mainString + "holdingItems")) {
+            for(String str: u.getStringList(mainString + "holdingItems")) {
                 _holdingItems.add(str);
             }
-        }
-
-        if(u.isString("lastLanguage")) {
-            _language = u.getString("lastLanguage");
         }
         
         _bDay = u.getInt("birth.day", -1);
@@ -220,11 +211,11 @@ public final class PlayerData {
         _bYear = u.getInt("birth.year", -1);
         setAge();
         _gender = u.getString("gender", "none");
-        _limit_home = u.getInt("limits.home", 0);
+        _limit_home = u.getInt(mainString + "limits.home", 0);
         
-        if(u.isConfigurationSection("limits.plot")) {
-            for(String k: u.getConfigurationSection("limits.plot").getKeys(false))
-                _limit_plot.put(k, u.getInt("limits.plot." + k));
+        if(u.isConfigurationSection(mainString + "limits.plot")) {
+            for(String k: u.getConfigurationSection(mainString + "limits.plot").getKeys(false))
+                _limit_plot.put(k, u.getInt(mainString + "limits.plot." + k));
         }
         for(World w: Bukkit.getWorlds()) {
             if(!_limit_plot.containsKey(w.getName()))
@@ -280,50 +271,64 @@ public final class PlayerData {
                     setPermCalendar(k.replace("-", "."), null);
             }
         }
-        
-        _lastUse = System.currentTimeMillis();
     }
     
     public final void savePlayerData() {
-        File uf = new File(Customs.getPlugin().getDataFolder(), "users");
-        File f = new File(uf, _uuid.toString() + ".yml");
+        File folder = new File(Customs.getPlugin().getConfig().getString("user-data-save-path", Customs.getPlugin().getName() + "/users"));
+        if(!folder.exists())
+            folder.mkdirs();
+        
+        File f = new File(folder, _uuid.toString() + ".yml");
+        
+        String main = Customs.getPlugin().getConfig().getString("server-name", "default") + ".";
         
         FileConfiguration u = YamlConfiguration.loadConfiguration(f);
         u.set("uuid", _uuid.toString());
         u.set("lastNickname", _name);
+        u.set("birth", null);
+        u.set("gender", null);
+        
+        //clear Old Datas
         u.set("homes", null);
         u.set("lastlocation", null);
         u.set("logoutlocation", null);
         u.set("timestamps", null);
         u.set("homes", null);
-        u.set("birth", null);
+        
+        //clear New Datas
+        u.set(main + "homes", null);
+        u.set(main + "lastlocation", null);
+        u.set(main + "logoutlocation", null);
+        u.set(main + "timestamps", null);
+        u.set(main + "homes", null);
+        
         if(_homes.size() > 0) {
             for(Map.Entry<String, Location> e : _homes.entrySet()) {
-                u.set("homes." + e.getKey() + ".world", e.getValue().getWorld().getName());
-                u.set("homes." + e.getKey() + ".x", e.getValue().getX());
-                u.set("homes." + e.getKey() + ".y", e.getValue().getY());
-                u.set("homes." + e.getKey() + ".z", e.getValue().getZ());
-                u.set("homes." + e.getKey() + ".yaw", e.getValue().getYaw());
-                u.set("homes." + e.getKey() + ".pitch", e.getValue().getPitch());
+                u.set(main + "homes." + e.getKey() + ".world", e.getValue().getWorld().getName());
+                u.set(main + "homes." + e.getKey() + ".x", e.getValue().getX());
+                u.set(main + "homes." + e.getKey() + ".y", e.getValue().getY());
+                u.set(main + "homes." + e.getKey() + ".z", e.getValue().getZ());
+                u.set(main + "homes." + e.getKey() + ".yaw", e.getValue().getYaw());
+                u.set(main + "homes." + e.getKey() + ".pitch", e.getValue().getPitch());
             }
         }
         
         if(_lastPos != null) {
-            u.set("lastlocation.world",_lastPos.getWorld().getName());
-            u.set("lastlocation.x", _lastPos.getX());
-            u.set("lastlocation.y", _lastPos.getY());
-            u.set("lastlocation.z", _lastPos.getZ());
-            u.set("lastlocation.yaw", _lastPos.getYaw());
-            u.set("lastlocation.pitch", _lastPos.getPitch());
+            u.set(main + "lastlocation.world",_lastPos.getWorld().getName());
+            u.set(main + "lastlocation.x", _lastPos.getX());
+            u.set(main + "lastlocation.y", _lastPos.getY());
+            u.set(main + "lastlocation.z", _lastPos.getZ());
+            u.set(main + "lastlocation.yaw", _lastPos.getYaw());
+            u.set(main + "lastlocation.pitch", _lastPos.getPitch());
         }
         
         if(_logOutPos != null) {
-            u.set("logoutlocation.world", _logOutPos.getWorld().getName());
-            u.set("logoutlocation.x", _logOutPos.getX());
-            u.set("logoutlocation.y", _logOutPos.getY());
-            u.set("logoutlocation.z", _logOutPos.getZ());
-            u.set("logoutlocation.yaw", _logOutPos.getYaw());
-            u.set("logoutlocation.pitch", _logOutPos.getPitch());
+            u.set(main + "logoutlocation.world", _logOutPos.getWorld().getName());
+            u.set(main + "logoutlocation.x", _logOutPos.getX());
+            u.set(main + "logoutlocation.y", _logOutPos.getY());
+            u.set(main + "logoutlocation.z", _logOutPos.getZ());
+            u.set(main + "logoutlocation.yaw", _logOutPos.getYaw());
+            u.set(main + "logoutlocation.pitch", _logOutPos.getPitch());
         }
         
         if(_timestamps.size() > 0) {
@@ -332,12 +337,11 @@ public final class PlayerData {
                     String tst = "";
                     for(String str: e.getKey().split("_"))
                         tst += "." + str;
-                    u.set("timestamps" + tst, e.getValue());
+                    u.set(main + "timestamps" + tst, e.getValue());
                 } else
-                    u.set("timestamps." + e.getKey(), e.getValue());
+                    u.set(main + "timestamps." + e.getKey(), e.getValue());
             }
         }
-        u.set("lastLanguage", _language);
         u.set("birth.day", _bDay);
         u.set("birth.month", _bMonth);
         u.set("birth.year", _bYear);
@@ -345,15 +349,15 @@ public final class PlayerData {
         
         if(_achievments.size() > 0) {
             for(Map.Entry<String, Long> ent: _achievments.entrySet()) {
-                u.set("achievments." + ent.getKey(), ent.getValue());
+                u.set(main + "achievments." + ent.getKey(), ent.getValue());
             }
         }
         if(_holdingItems.size() > 0)
-            u.set("holdingItems", (List<String>)_holdingItems);
-        u.set("limits.home", _limit_home);
+            u.set(main + "holdingItems", (List<String>)_holdingItems);
+        u.set(main + "limits.home", _limit_home);
         for(Map.Entry<String, Integer> e: _limit_plot.entrySet()) {
             if(e.getValue() > 0)
-                u.set("limits.plot." + e.getKey(), e.getValue());
+                u.set(main + "limits.plot." + e.getKey(), e.getValue());
         }
         
         if(_isVerify)

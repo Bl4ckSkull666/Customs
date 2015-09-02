@@ -14,10 +14,12 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
@@ -413,5 +415,25 @@ public final class Utils {
         for(String s: l)
             str += (str.isEmpty()?"§e":"§9, §e") + s;
         return str;
+    }
+    
+    public static UUID getUUIDByOfflinePlayer(String name) {
+       for(OfflinePlayer op: Bukkit.getOfflinePlayers()) {
+           if(op != null) {
+               if(op.getName().equalsIgnoreCase(name))
+                   return op.getUniqueId();
+           }
+       }
+       return null;
+    }
+    
+    public static String getNameByOfflinePlayer(String uuid) {
+       for(OfflinePlayer op: Bukkit.getOfflinePlayers()) {
+           if(op != null) {
+               if(op.getUniqueId().toString().equalsIgnoreCase(uuid))
+                   return op.getName();
+           }
+       }
+       return "";
     }
 }

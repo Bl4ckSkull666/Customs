@@ -10,6 +10,8 @@ import de.bl4ckskull666.customs.listeners.region.BuyAndSellRegions;
 import de.bl4ckskull666.customs.commands.region.Member;
 import de.bl4ckskull666.customs.commands.region.RegionSign;
 import ch.dragon252525.frameprotect.FrameProtect;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import com.griefcraft.lwc.LWCPlugin;
 import com.sk89q.craftbook.bukkit.CraftBookPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -166,6 +168,10 @@ public class Customs extends JavaPlugin {
                 getServer().getPluginManager().registerEvents(new TombStoneOpen(), this);
         }
         
+        if(getServer().getVersion().toLowerCase().contains("spigot")) {
+            getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        }
+        
         if(!getConfig().getBoolean("deactivate.function.join-left-message", false))
             getServer().getPluginManager().registerEvents(new JoinLeftMessage(), this);
         
@@ -205,8 +211,8 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("deactivate.function.tabcomplete", false)) {
             getServer().getPluginManager().registerEvents(new PlayerChatTabComplete(), this);
         
-            getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-            getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerChatTabComplete());
+            //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+            //getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerChatTabComplete());
         }
         
         if(!getConfig().getBoolean("deactivate.command,worldtp", false))
@@ -937,5 +943,14 @@ public class Customs extends JavaPlugin {
             if(pl != null)
                 p.hidePlayer(pl);
         }
+    }
+    
+    public static void sendPluginMessage(Player p, String type, Object vari) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("MyBungee");
+        out.writeUTF(type);
+        out.writeUTF(p.getUniqueId().toString());
+        out.writeUTF(vari.toString());
+        p.sendPluginMessage(_p, "BungeeCord", out.toByteArray());
     }
 }

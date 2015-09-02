@@ -70,6 +70,8 @@ public class Gender implements CommandExecutor {
             
             pd.setGender(gender);
             pd.setVerify(false);
+            Customs.sendPluginMessage(p, "gender", pd.getGender());
+            Customs.sendPluginMessage(p, "verify", false);
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.gender.successful", "You have set successful your gender."));
         } else
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.gender.wrongFormat", "Please add your gender after command."));

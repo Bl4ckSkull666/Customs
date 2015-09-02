@@ -91,6 +91,10 @@ public class onJoin implements Listener {
         if(p.hasPermission("customs.team")) {
             Bukkit.getServer().getScheduler().runTaskAsynchronously(Customs.getPlugin(), new checkMobSpawnFlag(p));
         }
+        
+        Customs.sendPluginMessage(p, "age", pd.getAge());
+        Customs.sendPluginMessage(p, "gender", pd.getGender());
+        Customs.sendPluginMessage(p, "verify", pd.getVerify());
     }
     
     @EventHandler(priority = EventPriority.HIGH)

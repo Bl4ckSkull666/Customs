@@ -54,6 +54,8 @@ public class Birthday implements CommandExecutor {
             
             pd.setBirthday(i[0], i[1], i[2]);
             pd.setVerify(false);
+            Customs.sendPluginMessage(p, "age", pd.getAge());
+            Customs.sendPluginMessage(p, "verify", false);
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.birthday.successful", "Your Birthday is successful saved."));
         } else
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.birthday.wrongFormat", "Please use /%cmd% dd.mm.yyyy or /%cmd% mm/dd/yyyy.", new String[] {"%cmd%"}, new String[] {c.getName()}));
