@@ -11,6 +11,7 @@ import de.bl4ckskull666.customs.utils.PlayerData;
 import de.bl4ckskull666.customs.utils.Tasks.updateInventorys;
 import java.util.HashMap;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +35,6 @@ public class ViewInventory implements CommandExecutor,Listener {
         }
         
         Player p = (Player)s;
-        PlayerData pd = PlayerData.getPlayerData(p);
         
         if(!p.hasPermission("customs.use.viewInventory")) {
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.viewinventory.noPermission", "You dont have permission to show in the inventory of other players."));
@@ -52,6 +52,8 @@ public class ViewInventory implements CommandExecutor,Listener {
         }
         
         Player vp = Bukkit.getPlayer(a[0]);
+        OfflinePlayer op = Bukkit.getOfflinePlayer(a[0]);
+        
         p.openInventory(vp.getInventory());
         //_tasks.put(p.getName(), t);
         return true;

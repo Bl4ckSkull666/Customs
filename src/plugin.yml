@@ -2,7 +2,7 @@ name: Customs
 version: 1.2
 author: Bl4ckSkull666
 main: de.bl4ckskull666.customs.Customs
-depend: [UUIDDatabase,Mu1ti1ingu41]
+depend: [Mu1ti1ingu41]
 softdepend: [WorldGuard,LWC,Vault,GroupManager,Citizens,FrameProtect]
 website: http://www.AMC-Server.de
 prefix: Cust
@@ -86,6 +86,9 @@ commands:
   creload:
     description: Reload view things 
     usage: /<command>
+  tppos:
+    description: Teleports you to the given Position
+    usage: /<command> <player> <world> <x> <y> <z>
   tp:
     description: Teleports you to player
     usage: /<command> <player>

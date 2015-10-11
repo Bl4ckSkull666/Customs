@@ -100,8 +100,11 @@ public class Customs extends JavaPlugin {
             if(!getConfig().getBoolean("deactivate.function.fixflintandsteel", false))
                 getServer().getPluginManager().registerEvents(new FixFlintAndSteel(), this);
             
-            if(!getConfig().getBoolean("deactivate.function.buyandsellsign", false))
+            if(!getConfig().getBoolean("deactivate.function.buyandsellsign", false)) {
                 getServer().getPluginManager().registerEvents(new BuyAndSellRegions(), this);
+                LoadAndSave.loadRegions(this);
+                LoadAndSave.loadBuySellSigns(this);
+            }
             
             if(!getConfig().getBoolean("deactivate.function.armorstand", false))
                 getServer().getPluginManager().registerEvents(new ArmorStandEvent(), this);
@@ -135,8 +138,6 @@ public class Customs extends JavaPlugin {
             
             if(!getConfig().getBoolean("deactivate.command.myhome", false))
                 getCommand("myhome").setExecutor(new MyHome());
-            LoadAndSave.loadRegions(this);
-            LoadAndSave.loadBuySellSigns(this);
         }
         
         p = getServer().getPluginManager().getPlugin("GroupManager");
@@ -170,6 +171,7 @@ public class Customs extends JavaPlugin {
         
         if(getServer().getVersion().toLowerCase().contains("spigot")) {
             getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+            getLogger().log(Level.INFO, "Plugin Message Channel Outgoing registred.");
         }
         
         if(!getConfig().getBoolean("deactivate.function.join-left-message", false))
@@ -199,20 +201,26 @@ public class Customs extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new ViewInventory(), this);
             getCommand("viewinventory").setExecutor(new ViewInventory());
         }
-        if(!getConfig().getBoolean("deactivate.function.rentfly", false))
+        if(!getConfig().getBoolean("deactivate.function.rentfly", false)) {
             getServer().getPluginManager().registerEvents(new RentFly(), this);
+            LoadAndSave.loadRentFlyTimes(this);
+        }
         
-        if(!getConfig().getBoolean("deactivate.function.gamestore", false))
+        if(!getConfig().getBoolean("deactivate.function.gamestore", false)) {
             getServer().getPluginManager().registerEvents(new ShopChest(), this);
+            File f = new File(ShopChest.checkPath(), "gamestore.yml");
+            _gamestore = YamlConfiguration.loadConfiguration(f);
+        }
+        
+        if(!getConfig().getBoolean("deactivate.function.ignore-teleport", false))
+            getServer().getPluginManager().registerEvents(new PlayerTeleport(), this);
         
         if(!getConfig().getBoolean("deactivate.function.npcprotection", false))
             getServer().getPluginManager().registerEvents(new NPCProtection(), this);
         
         if(!getConfig().getBoolean("deactivate.function.tabcomplete", false)) {
             getServer().getPluginManager().registerEvents(new PlayerChatTabComplete(), this);
-        
-            //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-            //getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerChatTabComplete());
+            getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", new PlayerChatTabComplete());
         }
         
         if(!getConfig().getBoolean("deactivate.command,worldtp", false))
@@ -239,8 +247,10 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("deactivate.command.gender", false))
             getCommand("gender").setExecutor(new Gender());
         
-        if(!getConfig().getBoolean("deactivate.command.kit", false))
+        if(!getConfig().getBoolean("deactivate.command.kit", false)) {
             getCommand("kit").setExecutor(new Kits());
+            LoadAndSave.loadKits(this);
+        }
         
         if(!getConfig().getBoolean("deactivate.command.invisible", false))
             getCommand("invisible").setExecutor(new Invisible());
@@ -254,8 +264,10 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("deactivate.command.broadcast", false))
             getCommand("broadcast").setExecutor(new Broadcast());
         
-        if(!getConfig().getBoolean("deactivate.command.give", false))
+        if(!getConfig().getBoolean("deactivate.command.give", false)) {
             getCommand("give").setExecutor(new Give());
+            LoadAndSave.loadBooks(this);
+        }
         
         if(!getConfig().getBoolean("deactivate.command.kill", false))
             getCommand("kill").setExecutor(new Kill());
@@ -278,6 +290,9 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("deactivate.command.help", false))
             getCommand("help").setExecutor(new Help());
         
+        if(!getConfig().getBoolean("deactivate.command.tppos", false))
+            getCommand("tppos").setExecutor(new Tppos());
+        
         if(!getConfig().getBoolean("deactivate.command.ride", false)) {
             getCommand("ride").setExecutor(new Ride());
             getServer().getPluginManager().registerEvents(new Ride(), this);
@@ -288,6 +303,27 @@ public class Customs extends JavaPlugin {
             getCommand("spawn").setExecutor(new Spawn());
             getCommand("setspawn").setExecutor(new Spawn());
             getCommand("delspawn").setExecutor(new Spawn());
+            if(getConfig().isConfigurationSection("spawnpoint")) {
+                if(Bukkit.getWorld(getConfig().getString("spawnpoint.world")) != null) {
+                    _spawnPoint = new Location(Bukkit.getWorld(getConfig().getString("spawnpoint.world")),
+                        getConfig().getDouble("spawnpoint.x"),
+                        getConfig().getDouble("spawnpoint.y"),
+                        getConfig().getDouble("spawnpoint.z"),
+                        (float)getConfig().getDouble("spawnpoint.yaw"),
+                        (float)getConfig().getDouble("spawnpoint.pitch"));
+                }
+            }
+
+            if(getConfig().isConfigurationSection("firstspawnpoint")) {
+                if(Bukkit.getWorld(getConfig().getString("firstspawnpoint.world")) != null) {
+                    _firstSpawnPoint = new Location(Bukkit.getWorld(getConfig().getString("firstspawnpoint.world")),
+                        getConfig().getDouble("firstspawnpoint.x"),
+                        getConfig().getDouble("firstspawnpoint.y"),
+                        getConfig().getDouble("firstspawnpoint.z"),
+                        (float)getConfig().getDouble("firstspawnpoint.yaw"),
+                        (float)getConfig().getDouble("firstspawnpoint.pitch"));
+                }
+            }
         }
         
         if(!getConfig().getBoolean("deactivate.command.home", false)) {
@@ -300,6 +336,7 @@ public class Customs extends JavaPlugin {
             getCommand("warp").setExecutor(new Warp());
             getCommand("setwarp").setExecutor(new Warp());
             getCommand("delwarp").setExecutor(new Warp());
+            LoadAndSave.loadWarps(this);
         }
         
         if(!getConfig().getBoolean("deactivate.command.back", false))
@@ -326,32 +363,8 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("deactivate.command.tpaaccept", false))
             getCommand("tpaaccept").setExecutor(new Tpa());
         
-        if(getConfig().isConfigurationSection("spawnpoint")) {
-            if(Bukkit.getWorld(getConfig().getString("spawnpoint.world")) != null) {
-                _spawnPoint = new Location(Bukkit.getWorld(getConfig().getString("spawnpoint.world")),
-                    getConfig().getDouble("spawnpoint.x"),
-                    getConfig().getDouble("spawnpoint.y"),
-                    getConfig().getDouble("spawnpoint.z"),
-                    (float)getConfig().getDouble("spawnpoint.yaw"),
-                    (float)getConfig().getDouble("spawnpoint.pitch"));
-            }
-        }
         
-        if(getConfig().isConfigurationSection("firstspawnpoint")) {
-            if(Bukkit.getWorld(getConfig().getString("firstspawnpoint.world")) != null) {
-                _firstSpawnPoint = new Location(Bukkit.getWorld(getConfig().getString("firstspawnpoint.world")),
-                    getConfig().getDouble("firstspawnpoint.x"),
-                    getConfig().getDouble("firstspawnpoint.y"),
-                    getConfig().getDouble("firstspawnpoint.z"),
-                    (float)getConfig().getDouble("firstspawnpoint.yaw"),
-                    (float)getConfig().getDouble("firstspawnpoint.pitch"));
-            }
-        }
-        LoadAndSave.loadBlockedWorldsByCommand(this);
-        LoadAndSave.loadWarps(this);
-        LoadAndSave.loadKits(this);
-        LoadAndSave.loadBooks(this);
-        LoadAndSave.loadRentFlyTimes(this);
+        LoadAndSave.loadBlockedWorldsByCommand(this);;
         _p = this;
         
         //Database Checks
@@ -361,10 +374,6 @@ public class Customs extends JavaPlugin {
         if(!getConfig().getBoolean("database.server.useable") || !getConfig().getBoolean("database.bungee.useable"))
             getLogger().log(Level.INFO, "Happend error on using Database. Please check it to save and load datas there.");
  
-        
-        //Load GameStore
-        File f = new File(ShopChest.checkPath(), "gamestore.yml");
-        _gamestore = YamlConfiguration.loadConfiguration(f);
         
         //Start Tasks
         BukkitTask ctr = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(this, new checkTeleportRequests(), 100, 100);
@@ -420,25 +429,33 @@ public class Customs extends JavaPlugin {
             PlayerData pd = PlayerData.getPlayerData(p);
             pd.setLogOutPos(p.getLocation());
         }
-        RFly.saveAll();
-        LoadAndSave.saveRentFlyTimes(this);
-        PlayerData.saveAllPlayerDatas();
-        LoadAndSave.saveWarps(this);
-        LoadAndSave.saveBuySellSigns(this);
         
-        try {
-            File gs = new File(ShopChest.checkPath(), "gamestore.yml");
-            _gamestore.save(gs);
-        } catch(Exception ex) {
-            
+        if(!getConfig().getBoolean("deactivate.function.rentfly", false)) {
+            RFly.saveAll();
+            LoadAndSave.saveRentFlyTimes(this);
+        }
+        
+        PlayerData.saveAllPlayerDatas();
+        if(!getConfig().getBoolean("deactivate.command.warp", false))
+            LoadAndSave.saveWarps(this);
+        if(!getConfig().getBoolean("deactivate.function.buyandsellsign", false))
+            LoadAndSave.saveBuySellSigns(this);
+        
+        if(!getConfig().getBoolean("deactivate.function.gamestore", false)) {
+            try {
+                File gs = new File(ShopChest.checkPath(), "gamestore.yml");
+                _gamestore.save(gs);
+            } catch(Exception ex) {}
         }
     }
     
     private boolean setupEconomy() {
-        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-        if (economyProvider != null) {
-            _eco = economyProvider.getProvider();
-        }
+        try {
+            RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            if (economyProvider != null) {
+                _eco = economyProvider.getProvider();
+            }
+        } catch(NoClassDefFoundError ex) {}
         return (_eco != null);
     }
     
@@ -950,7 +967,12 @@ public class Customs extends JavaPlugin {
         out.writeUTF("MyBungee");
         out.writeUTF(type);
         out.writeUTF(p.getUniqueId().toString());
-        out.writeUTF(vari.toString());
+        out.writeUTF(String.valueOf(vari));
         p.sendPluginMessage(_p, "BungeeCord", out.toByteArray());
+    }
+    
+    private final static ArrayList<String> _errors = new ArrayList<>();
+    public static ArrayList<String> getErrors() {
+        return _errors;
     }
 }

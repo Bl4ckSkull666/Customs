@@ -9,10 +9,8 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import de.bl4ckskull666.customs.Customs;
 import de.bl4ckskull666.mu1ti1ingu41.Language;
-import de.bl4ckskull666.customs.utils.PlayerData;
 import de.bl4ckskull666.customs.utils.RegionUtils;
 import de.bl4ckskull666.customs.utils.Utils;
-import de.bl4ckskull666.uuiddatabase.UUIDDatabase;
 import java.util.ArrayList;
 import java.util.UUID;
 import net.md_5.bungee.api.ChatColor;
@@ -35,7 +33,6 @@ public class Member implements CommandExecutor {
         }
         
         Player p = (Player)s;
-        PlayerData pd = PlayerData.getPlayerData(p);
         
         if(!p.hasPermission("customs.use.member")) {
             p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "command.region.noPerm","YOu don't have permission to use this command."));
@@ -62,12 +59,9 @@ public class Member implements CommandExecutor {
             if(Bukkit.getPlayer(player) != null) {
                 lp = Customs.getPlugin().getWG().wrapPlayer(Bukkit.getPlayer(player));
             } else {
-                String pUUID = UUIDDatabase.getUUIDByName(player);
+                UUID uuid = Utils.getUUIDByOfflinePlayer(player);
                 try {
-                    if(pUUID.length() == 32)
-                        pUUID = pUUID.replaceFirst("([0-9a-fA-F]{8})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]{4})([0-9a-fA-F]+)", "$1-$2-$3-$4-$5");
-                    UUID uuid = UUID.fromString(pUUID);
-                    if(Bukkit.getOfflinePlayer(uuid) != null)
+                    if(uuid != null)
                         lp = Customs.getPlugin().getWG().wrapOfflinePlayer(Bukkit.getOfflinePlayer(uuid));
                 } catch(Exception ex) {}
             }

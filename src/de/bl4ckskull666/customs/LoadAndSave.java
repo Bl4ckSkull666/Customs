@@ -13,7 +13,6 @@ import de.bl4ckskull666.customs.utils.RFly;
 import de.bl4ckskull666.customs.utils.RegionBuySellSign;
 import de.bl4ckskull666.customs.utils.RegionUtils;
 import de.bl4ckskull666.customs.utils.Rnd;
-import de.bl4ckskull666.uuiddatabase.UUIDDatabase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,11 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -216,7 +215,7 @@ public final class LoadAndSave {
                 continue;
             
             String world = w.getName();
-            
+            ArrayList<String> temp = new ArrayList<>();
             for(File f: w.listFiles()) {
                 FileConfiguration r = YamlConfiguration.loadConfiguration(f);
                 try {
@@ -231,25 +230,46 @@ public final class LoadAndSave {
                         rbss.setOwnerLastName(r.getString("owner_last_name", "unknown"));
                         rbss.setBuyed(r.getLong("buyTime", 0));
                         Customs.setRegion(rbss.getWorld(), rbss.getRegion(), true);
-                        if(rbss.getOwnerUUID().length() <= 16)
-                            rbss.setOwnerUUID(UUIDDatabase.getUUIDByName(rbss.getOwnerUUID()));
+                        if(rbss.getOwnerUUID().length() <= 16) {
+                            for(OfflinePlayer op: Bukkit.getOfflinePlayers()) {
+                                if(op.getName().equalsIgnoreCase(rbss.getOwnerUUID()))
+                                    rbss.setOwnerUUID(op.getUniqueId().toString());
+                            }
+                        } else {
+                            OfflinePlayer op = Bukkit.getOfflinePlayer(rbss.getOwnersUUID());
+                            if(op != null && rbss.getOwnerLastName() != null && op.getName() != null) {
+                                if(!op.getName().equalsIgnoreCase(rbss.getOwnerLastName()))
+                                    rbss.setOwnerLastName(op.getName());
+                            } else
+                                rbss.setOwnerLastName("unknown");
+                        }
                     }
                     
                     if(pr != null) {
-                        if(pr.getOwners().size() == 0) {
+                        if(rbss.isOwned() && rbss.getOwnersUUID() != null && Bukkit.getOfflinePlayer(rbss.getOwnersUUID()) != null &&
+                                pr.isOwner(Customs.getPlugin().getWG().wrapOfflinePlayer(Bukkit.getOfflinePlayer(rbss.getOwnersUUID())))) {
+                            //All Good.
+                        } else if(pr.getOwners().size() == 0) {
                             rbss.setOwned(false);
                             rbss.setOwnerUUID("");
                             rbss.setOwnerLastName("");
                             rbss.setBuyed(0L);
-                        } else if(!rbss.isOwned() && pr.getOwners().size() > 0) {
-                            rbss.setOwnerUUID(pr.getOwners().getUniqueIds().toArray()[0].toString());
-                            rbss.setOwnerLastName(UUIDDatabase.getNameByUUID(pr.getOwners().getUniqueIds().toArray()[0].toString()));
+                        } else if(!rbss.isOwned() && pr.getOwners().getUniqueIds().size() > 0) {
+                            UUID[] uuids = (UUID[])pr.getOwners().getUniqueIds().toArray(new UUID[pr.getOwners().getUniqueIds().size()]);
+                            if(uuids.length > 0 && Bukkit.getOfflinePlayer(uuids[0]) != null) {
+                                rbss.setOwnerUUID(uuids[0].toString());
+                                rbss.setOwnerLastName(Bukkit.getOfflinePlayer(uuids[0]).getName());
+                            }
                         } else {
                             if(!pr.getOwners().getUniqueIds().contains(UUID.fromString(rbss.getOwnerUUID()))) {
-                                rbss.setOwnerUUID(pr.getOwners().getUniqueIds().toArray()[0].toString());
-                                rbss.setOwnerLastName(UUIDDatabase.getNameByUUID(rbss.getOwnerUUID()));
+                                UUID[] uuids = (UUID[])pr.getOwners().getUniqueIds().toArray();
+                                if(uuids.length > 0 && Bukkit.getOfflinePlayer(uuids[0]) != null) {
+                                    rbss.setOwnerUUID(uuids[0].toString());
+                                    rbss.setOwnerLastName(Bukkit.getOfflinePlayer(uuids[0]).getName());
+                                }
                             }
                         }
+                        temp.add(pr.getId());
                     }
 
                     if(r.isConfigurationSection("signs")) {
@@ -270,10 +290,49 @@ public final class LoadAndSave {
                             }
                         }
                         rbss.updateSigns();
+                    } else {
+                        Customs.getErrors().add("Missing Signs for Region " + r.getString("name"));
+                        p.getLogger().log(Level.INFO, "Missing Signs for Region {0}", r.getString("name"));
                     }
                     count++;
                 } catch(Exception ex) {
+                    Customs.getErrors().add("Error on load " + r.getString("name"));
                     p.getLogger().log(Level.INFO, "Error on load " + r.getString("name"), ex);
+                }
+            }
+            for(Map.Entry<String, ProtectedRegion> me: Customs.getPlugin().getWG().getRegionManager(Bukkit.getWorld(world)).getRegions().entrySet()) {
+                if(temp.contains(me.getKey()))
+                    continue;
+                
+                if(!RegionBuySellSign.getRegions().get(world).containsKey(me.getKey()))
+                    continue;
+
+                if(me.getValue().getOwners().size() <= 0)
+                    continue;
+                
+                if(RegionBuySellSign.getRegions() == null || !RegionBuySellSign.getRegions().containsKey(world) || RegionBuySellSign.getRegions().get(world).containsKey(me.getKey()))
+                    continue;
+                
+                RegionBuySellSign rbss = RegionBuySellSign.getRegions().get(world).get(me.getKey());
+                rbss.setOwned(true);
+                rbss.setBuyed(System.currentTimeMillis());
+                if(me.getValue().getOwners().size() == 1) {
+                   UUID[] uuids = me.getValue().getOwners().getUniqueIds().toArray(new UUID[me.getValue().getOwners().getUniqueIds().size()]);
+                   if(uuids.length > 0 && Bukkit.getOfflinePlayer(uuids[0]) != null) {
+                        rbss.setOwnerUUID(uuids[0].toString());
+                        rbss.setOwnerLastName(Bukkit.getOfflinePlayer(uuids[0]).getName());
+                        rbss.updateSigns();
+                   }
+                } else {
+                    UUID[] uuids = (UUID[])me.getValue().getOwners().getUniqueIds().toArray();
+                    if(uuids.length > 0) {
+                        int num = Rnd.get(1, uuids.length)-1;
+                        if(Bukkit.getOfflinePlayer(uuids[num]) != null) {
+                            rbss.setOwnerUUID(uuids[num].toString());
+                            rbss.setOwnerLastName(Bukkit.getOfflinePlayer(uuids[num]).getName());
+                            rbss.updateSigns();
+                        }
+                    }
                 }
             }
             p.getLogger().log(Level.INFO, "{0} region signs are loaded on {1}", new Object[]{count, world});

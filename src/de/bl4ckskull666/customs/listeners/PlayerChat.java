@@ -5,6 +5,8 @@
  */
 package de.bl4ckskull666.customs.listeners;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import de.bl4ckskull666.customs.Customs;
 import de.bl4ckskull666.mu1ti1ingu41.Language;
 import de.bl4ckskull666.customs.utils.PlayerData;
@@ -68,6 +70,14 @@ public class PlayerChat implements Listener {
         cal.setTimeInMillis(System.currentTimeMillis());
         String time = ChatColor.WHITE + "[" + ChatColor.GOLD + (cal.get(Calendar.HOUR_OF_DAY) < 10?"0":"") + cal.get(Calendar.HOUR_OF_DAY) + ":" + (cal.get(Calendar.MINUTE) < 10?"0":"") + cal.get(Calendar.MINUTE) + ":" + (cal.get(Calendar.SECOND) < 10?"0":"") + cal.get(Calendar.SECOND) + ChatColor.WHITE + "]";
         e.setMessage(time + pFormat);
+        
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("MyBungee");
+        out.writeUTF("chat");
+        out.writeUTF(e.getPlayer().getUniqueId().toString());
+        out.writeUTF(Customs.getPlugin().getConfig().getString("server-name", "default"));
+        out.writeUTF(pFormat.replace(" ", "__"));
+        e.getPlayer().sendPluginMessage(Customs.getPlugin(), "BungeeCord", out.toByteArray());
     }
     
     @EventHandler(priority = EventPriority.HIGHEST)

@@ -200,6 +200,8 @@ forbidden-fly-worlds:
 - rallyingcity
 - jumpnrun
 - event
+ignore-teleport:
+- lobby
 deactivate:
   function:
     breakspawner: false
@@ -217,6 +219,7 @@ deactivate:
     gamestore: false
     npcprotection: false
     tabcomplete: false
+    ignore-teleport: false
   command:
     plot: false
     deathgs: false

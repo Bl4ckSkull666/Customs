@@ -63,10 +63,9 @@ public class Ride implements CommandExecutor,Listener {
         return true;
     }
     
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerInteract(PlayerInteractAtEntityEvent e) {
         Player p = e.getPlayer();
-        PlayerData pd = PlayerData.getPlayerData(p);
         
         if(!WaitingAction.isWaiting(p.getName()))
             return;
@@ -91,7 +90,7 @@ public class Ride implements CommandExecutor,Listener {
         WaitingAction.removeWaiting(p.getName());
     }
     
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onPlayerMove(PlayerMoveEvent e) {
         if(e.getPlayer().getVehicle() == null)
             return;
@@ -100,10 +99,14 @@ public class Ride implements CommandExecutor,Listener {
             return;
         
         Entity en = e.getPlayer().getVehicle();
-        en.setVelocity(new Vector(e.getTo().getX(), e.getTo().getY(), e.getTo().getZ()));
+        int x = e.getFrom().getBlockX()-e.getTo().getBlockX();
+        int y = e.getFrom().getBlockY()-e.getTo().getBlockY();
+        int z = e.getFrom().getBlockZ()-e.getTo().getBlockZ();
+        
+        en.setVelocity(new Vector(x, y, z));
     }
     
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.LOW)
     public void onEntityDismount(EntityDismountEvent e) {
         if(_vehicles.contains(e.getDismounted()))
             _vehicles.remove(e.getDismounted());

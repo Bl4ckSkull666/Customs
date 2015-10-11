@@ -8,7 +8,6 @@ package de.bl4ckskull666.customs.utils;
 import de.bl4ckskull666.customs.Customs;
 import de.bl4ckskull666.customs.listeners.ShopChest.removePermissionFromPlayer;
 import de.bl4ckskull666.customs.listeners.ShopChest.removeSpecialGroup;
-import de.bl4ckskull666.uuiddatabase.UUIDDatabase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -680,9 +679,9 @@ public final class PlayerData {
     }
     
     public static PlayerData getPlayerData(String p) {
-        String uuid = UUIDDatabase.getUUIDByName(p);
-        if(_players.containsKey(uuid)) {
-            PlayerData pd = _players.get(uuid);
+        UUID uuid = Utils.getUUIDByOfflinePlayer(p);
+        if(uuid != null && _players.containsKey(uuid.toString())) {
+            PlayerData pd = _players.get(uuid.toString());
             pd.setLastUse();
             return pd;
         }

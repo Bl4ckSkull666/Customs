@@ -109,14 +109,19 @@ public final class Utils {
             }
         }
         
+        boolean isInVehicle = false;
         if(p.isInsideVehicle()) {
             Entity e = p.getVehicle();
             p.leaveVehicle();
             e.teleport(loc);
             vehicle = e;
+            isInVehicle = true;
         }
         
-        Bukkit.getScheduler().runTaskLater(Customs.getPlugin(), new TeleportPlayer(p, vehicle, leashed, loc), (tpDelay*20));
+        if(isInVehicle || !leashed.isEmpty())
+            Bukkit.getScheduler().runTaskLater(Customs.getPlugin(), new TeleportPlayer(p, vehicle, leashed, loc), (tpDelay*20));
+        else
+            Bukkit.getScheduler().runTask(Customs.getPlugin(), new TeleportPlayer(p, null, null, loc));
     }
     
     public static void setLeashed(Player p, Entity e) {

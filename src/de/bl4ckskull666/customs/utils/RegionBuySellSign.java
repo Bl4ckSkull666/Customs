@@ -10,6 +10,7 @@ import de.bl4ckskull666.customs.utils.Tasks.updateRegionSigns;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -30,6 +31,7 @@ public final class RegionBuySellSign {
     private final ArrayList<Location> _buySigns = new ArrayList<>();
     private final HashMap<Location, Boolean> _tpToRegion = new HashMap<>();
     private String _selledBy = "server";
+    private UUID _uuid = null;
     
     public RegionBuySellSign(String world, String region, int price) {
         _world = world.toLowerCase();
@@ -59,6 +61,12 @@ public final class RegionBuySellSign {
     
     public String getOwnerUUID() {
         return _owner_uuid;
+    }
+    
+    public UUID getOwnersUUID() {
+        if(_uuid == null && !_owner_uuid.equalsIgnoreCase("00000000-0000-0000-0000-000000000000") && _owner_uuid.length() == 36)
+            _uuid = UUID.fromString(_owner_uuid);
+        return _uuid;
     }
     
     public void setOwnerLastName(String name) {

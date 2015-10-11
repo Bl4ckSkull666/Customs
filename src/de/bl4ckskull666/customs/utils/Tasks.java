@@ -408,8 +408,8 @@ public final class Tasks {
         @Override
         public void run() {
             _p.teleport(_loc);
-            if(_e != null || _l.size() > 0)
-                Bukkit.getScheduler().runTaskLater(Customs.getPlugin(), new TeleportPlayerAfter(_p, _e, _l), 40);
+            if(_e != null || (_l != null && _l.size() > 0))
+                Bukkit.getScheduler().runTaskLater(Customs.getPlugin(), new TeleportPlayerAfter(_p, _e, _l), 50L);
         }
     }
     

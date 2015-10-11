@@ -14,13 +14,14 @@ import de.bl4ckskull666.customs.utils.PlayerData;
 import de.bl4ckskull666.customs.utils.RegionBuySellSign;
 import de.bl4ckskull666.customs.utils.RegionUtils;
 import de.bl4ckskull666.customs.utils.Rnd;
-import de.bl4ckskull666.uuiddatabase.UUIDDatabase;
+import de.bl4ckskull666.customs.utils.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -132,17 +133,21 @@ public class DeathGs implements CommandExecutor {
 
                         DefaultDomain dd = pr.getOwners();
                         for(String player: dd.getPlayers()) {
+                            String pUUID = player;
                             if(temp.equals(e.getKey()))
                                 continue;
                             
-                            if(player.length() < 32)
-                                player = UUIDDatabase.getUUIDByName(player);
+                            if(player.length() < 32) {
+                                UUID uuid = Utils.getUUIDByOfflinePlayer(player);
+                                if(uuid != null)
+                                    pUUID = uuid.toString();
+                            }
                             
                             long lastLogOut = 0;
                             if(users.containsKey(player))
                                 lastLogOut = users.get(player);
                             else {
-                                PlayerData upd = PlayerData.getPlayerData(player);
+                                PlayerData upd = PlayerData.getPlayerData(pUUID);
                                 lastLogOut = upd.getTimeStamp("logout");
                                 users.put(player, lastLogOut);
                             }
@@ -152,7 +157,7 @@ public class DeathGs implements CommandExecutor {
                             }
 
                             if((System.currentTimeMillis()-lastLogOut) >= 2592000000L) {
-                                _deathPlot.add(UUIDDatabase.getNameByUUID(player.toString()) + "::" + e.getKey() + "::" + w.getName());
+                                _deathPlot.add(player + "::" + e.getKey() + "::" + w.getName());
                                 temp.add(e.getKey());
                             }
                         }
@@ -169,13 +174,18 @@ public class DeathGs implements CommandExecutor {
                                 lastLogOut = upd.getTimeStamp("logout");
                                 users.put(uuid.toString(), lastLogOut);
                             }
+                            
+                            String player = uuid.toString();
+                            OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+                            if(op != null)
+                                player = op.getName();
 
                             if(lastLogOut == 0) {
                                 continue;
                             }
 
                             if((System.currentTimeMillis()-lastLogOut) >= 2592000000L) {
-                                _deathPlot.add(UUIDDatabase.getNameByUUID(uuid.toString()) + "::" + e.getKey() + "::" + w.getName());
+                                _deathPlot.add(player + "::" + e.getKey() + "::" + w.getName());
                                 temp.add(e.getKey());
                             }
                         }

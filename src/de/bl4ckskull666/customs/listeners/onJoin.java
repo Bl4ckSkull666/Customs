@@ -14,12 +14,16 @@ import de.bl4ckskull666.customs.utils.Tasks.checkMobSpawnFlag;
 import org.bukkit.Achievement;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -92,9 +96,13 @@ public class onJoin implements Listener {
             Bukkit.getServer().getScheduler().runTaskAsynchronously(Customs.getPlugin(), new checkMobSpawnFlag(p));
         }
         
-        Customs.sendPluginMessage(p, "age", pd.getAge());
-        Customs.sendPluginMessage(p, "gender", pd.getGender());
-        Customs.sendPluginMessage(p, "verify", pd.getVerify());
+        if(p.isOp()) {
+            if(!Customs.getErrors().isEmpty()) {
+                p.sendMessage(Language.getMessage(Customs.getPlugin(), p.getUniqueId(), "error-header", "§e~~~~ Found some errors in Customs plugin ~~~~"));
+                for(String msg: Customs.getErrors())
+                    p.sendMessage("§c" + msg);
+            }
+        }
     }
     
     @EventHandler(priority = EventPriority.HIGH)
@@ -155,5 +163,28 @@ public class onJoin implements Listener {
         Player p = (Player)e.getEntity();
         PlayerData pd = PlayerData.getPlayerData(p);
         pd.setLastPos(p.getLocation());
+    }
+    
+    @EventHandler(priority = EventPriority.LOW)
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        if(!e.getPlayer().isOp())
+            return;
+        
+        if(!e.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+            return;
+        
+        if(!e.hasItem())
+            return;
+        
+        if(!e.getItem().getType().equals(Material.WOOD_SWORD))
+            return;
+        
+        Player p = e.getPlayer();
+        Block b = e.getClickedBlock();
+        
+        p.sendMessage(ChatColor.GOLD + "Block Material : " + ChatColor.YELLOW + b.getType().name());
+        p.sendMessage(ChatColor.DARK_AQUA + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        p.sendMessage(ChatColor.GOLD + "Item Material : " + ChatColor.YELLOW + b.getState().getData().toItemStack().getType().name());
+        p.sendMessage(ChatColor.GOLD + "Item Durability : " + ChatColor.YELLOW + b.getState().getData().toItemStack().getDurability());
     }
 }

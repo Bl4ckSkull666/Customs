@@ -12,12 +12,13 @@ import de.bl4ckskull666.customs.utils.PlayerData;
 import de.bl4ckskull666.customs.utils.RegionBuySellSign;
 import de.bl4ckskull666.customs.utils.RegionUtils;
 import de.bl4ckskull666.customs.utils.Rnd;
-import de.bl4ckskull666.uuiddatabase.UUIDDatabase;
+import de.bl4ckskull666.customs.utils.Utils;
 import java.util.HashMap;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -96,17 +97,27 @@ public class BuyAndSellRegions implements Listener {
         ProtectedRegion pr = RegionUtils.getRegion(w, e.getLine(2));
         
         RegionBuySellSign rbss = RegionBuySellSign.getRegionSign(w.getName(), e.getLine(2), Integer.parseInt(l4[0]));
-        if(pr.hasMembersOrOwners()) {
+        if(pr.getOwners().size() > 0) {
             if(pr.getOwners().getUniqueIds().size() > 0) {
-                UUID[] temp = pr.getOwners().getUniqueIds().toArray(new UUID[pr.getOwners().getUniqueIds().size()]);
-                rbss.setOwnerUUID(temp[0].toString());
-                rbss.setOwnerLastName(UUIDDatabase.getNameByUUID(temp[0].toString()));
-                rbss.setOwned(true);
+                for(UUID uuid: pr.getOwners().getUniqueIds()) {
+                    OfflinePlayer op = Bukkit.getOfflinePlayer(uuid);
+                    if(op == null)
+                        continue;
+                    rbss.setOwnerUUID(uuid.toString());
+                    rbss.setOwnerLastName(op.getName());
+                    rbss.setOwned(true);
+                    break;
+                }
             } else if(pr.getOwners().getPlayers().size() > 0) {
-                String[] temp = pr.getOwners().getPlayers().toArray(new String[pr.getOwners().getPlayers().size()]);
-                rbss.setOwnerUUID(UUIDDatabase.getUUIDByName(temp[0]));
-                rbss.setOwnerLastName(temp[0]);
-                rbss.setOwned(true);
+                for(String name: pr.getOwners().getPlayers()) {
+                    UUID uuid = Utils.getUUIDByOfflinePlayer(name);
+                    if(uuid == null)
+                        continue;
+                    rbss.setOwnerUUID(uuid.toString());
+                    rbss.setOwnerLastName(name);
+                    rbss.setOwned(true);
+                    break;
+                }
             }
         }
         rbss.addBuySign(e.getBlock().getLocation());
